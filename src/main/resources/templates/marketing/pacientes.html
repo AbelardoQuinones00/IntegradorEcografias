@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pacientes · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='pacientes')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Pacientes', pageSubtitle='Administra la informacion de tus pacientes')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Marketing y Ventas / Pacientes</span>
+      </nav>
+
+
+      <div x-data="{ nuevoPaciente: false, editPaciente: false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div class="relative w-full max-w-sm">
+            <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></i>
+            <input type="text" placeholder="Buscar por nombre, DNI o codigo..." class="form-input !pl-9" />
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-outline " ><i data-lucide="sliders-horizontal" class="h-4 w-4"></i><span>Filtros</span></button>
+            <button @click="nuevoPaciente = true" class="btn btn-primary"><i data-lucide="user-plus" class="h-4 w-4"></i><span>Registrar paciente</span></button>
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr>
+                  <th class="table-th">Codigo</th>
+                  <th class="table-th">Paciente</th>
+                  <th class="table-th">DNI</th>
+                  <th class="table-th">Telefono</th>
+                  <th class="table-th">Nacimiento</th>
+                  <th class="table-th">Historial</th>
+                  <th class="table-th">Estado</th>
+                  <th class="table-th">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium text-gray-700 dark:text-gray-200">P-001</td>
+                <td class="table-td">
+                  <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/80?u=P-001" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Ana Perez</span>
+                  </div>
+                </td>
+                <td class="table-td">45871236</td>
+                <td class="table-td">987 654 321</td>
+                <td class="table-td">28/06/1990</td>
+                <td class="table-td">12 citas</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="editPaciente = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver citas"><i data-lucide="calendar" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium text-gray-700 dark:text-gray-200">P-002</td>
+                <td class="table-td">
+                  <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/80?u=P-002" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Carlos Torres</span>
+                  </div>
+                </td>
+                <td class="table-td">41236598</td>
+                <td class="table-td">912 345 678</td>
+                <td class="table-td">14/03/1985</td>
+                <td class="table-td">5 citas</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="editPaciente = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver citas"><i data-lucide="calendar" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium text-gray-700 dark:text-gray-200">P-003</td>
+                <td class="table-td">
+                  <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/80?u=P-003" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Maria Lopez</span>
+                  </div>
+                </td>
+                <td class="table-td">47896541</td>
+                <td class="table-td">998 112 233</td>
+                <td class="table-td">02/11/1994</td>
+                <td class="table-td">8 citas</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="editPaciente = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver citas"><i data-lucide="calendar" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium text-gray-700 dark:text-gray-200">P-004</td>
+                <td class="table-td">
+                  <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/80?u=P-004" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Luis Ramos</span>
+                  </div>
+                </td>
+                <td class="table-td">40021458</td>
+                <td class="table-td">955 214 887</td>
+                <td class="table-td">19/07/1978</td>
+                <td class="table-td">2 citas</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Inactivo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="editPaciente = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver citas"><i data-lucide="calendar" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium text-gray-700 dark:text-gray-200">P-005</td>
+                <td class="table-td">
+                  <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/80?u=P-005" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Jose Mendoza</span>
+                  </div>
+                </td>
+                <td class="table-td">44581296</td>
+                <td class="table-td">901 774 552</td>
+                <td class="table-td">30/01/2001</td>
+                <td class="table-td">1 citas</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="editPaciente = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver citas"><i data-lucide="calendar" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flex items-center justify-between border-t border-gray-100 px-4 py-3 text-xs text-gray-400 dark:border-gray-800">
+            <span>Mostrando 5 de 214 pacientes</span>
+            <div class="flex gap-1">
+              <button class="btn btn-outline !px-3 !py-1.5">Anterior</button>
+              <button class="btn btn-outline !px-3 !py-1.5">Siguiente</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Registrar / Editar paciente -->
+        <div x-show="nuevoPaciente || editPaciente" x-cloak
+             class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4"
+             @keydown.escape.window="nuevoPaciente = false; editPaciente = false">
+          <div @click.outside="nuevoPaciente = false; editPaciente = false" x-transition
+               class="w-full max-w-lg rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white" x-text="editPaciente ? 'Editar paciente' : 'Registrar paciente'"></h3>
+              <button @click="nuevoPaciente = false; editPaciente = false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <form class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div><label class="form-label">Nombres y apellidos</label><input class="form-input" value="Ana Perez" /></div>
+              <div><label class="form-label">DNI</label><input class="form-input" value="45871236" /></div>
+              <div><label class="form-label">Fecha de nacimiento</label><input type="date" class="form-input" /></div>
+              <div><label class="form-label">Telefono</label><input class="form-input" value="987 654 321" /></div>
+              <div class="sm:col-span-2"><label class="form-label">Correo</label><input class="form-input" placeholder="correo@ejemplo.com" /></div>
+              <div class="sm:col-span-2"><label class="form-label">Direccion</label><input class="form-input" placeholder="Av. Ejemplo 123" /></div>
+              <div class="sm:col-span-2 mt-2 flex justify-end gap-2">
+                <button type="button" @click="nuevoPaciente = false; editPaciente = false" class="btn btn-outline">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar paciente</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

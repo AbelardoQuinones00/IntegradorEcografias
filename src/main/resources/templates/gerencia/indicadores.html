@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Indicadores · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='indicadores')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Indicadores', pageSubtitle='Como funciono la empresa durante un periodo (RF017)')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Gerencia / Indicadores</span>
+      </nav>
+
+
+      <div class="card mb-5 flex flex-wrap items-end gap-4 p-4">
+        <div><label class="form-label">Desde</label><input type="date" value="2026-09-01" class="form-input" /></div>
+        <div><label class="form-label">Hasta</label><input type="date" value="2026-09-30" class="form-input" /></div>
+        <button class="btn btn-primary"><i data-lucide="refresh-cw" class="h-4 w-4"></i><span>Actualizar</span></button>
+      </div>
+
+      <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Como funciono la empresa durante el periodo (RF017)</p>
+      <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">
+              <i data-lucide="calendar-check-2" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">842</p>
+          <p class="text-xs text-gray-400">Citas</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+              <i data-lucide="activity" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">756</p>
+          <p class="text-xs text-gray-400">Atenciones</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+              <i data-lucide="user-x" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">51</p>
+          <p class="text-xs text-gray-400">Inasistencias</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">
+              <i data-lucide="file-text" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">731</p>
+          <p class="text-xs text-gray-400">Informes</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Citas vs atenciones por semana</h3>
+          <canvas id="chartInd1" height="160"></canvas>
+        </div>
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Consumo de insumos (top 5)</h3>
+          <canvas id="chartInd2" height="160"></canvas>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+      <script>
+        const grid2 = { color: 'rgba(148,163,184,0.15)' };
+        new Chart(document.getElementById('chartInd1'), {
+          type: 'bar',
+          data: { labels: ['Sem 1','Sem 2','Sem 3','Sem 4'],
+            datasets: [
+              { label:'Citas', data:[198,210,205,229], backgroundColor:'#465fff', borderRadius:6 },
+              { label:'Atenciones', data:[175,190,182,209], backgroundColor:'#c2d6ff', borderRadius:6 }
+            ] },
+          options: { scales: { y:{grid:grid2}, x:{grid:{display:false}} } }
+        });
+        new Chart(document.getElementById('chartInd2'), {
+          type: 'bar',
+          data: { labels: ['Gel','Guantes','Papel termico','Alcohol','Sabanas'],
+            datasets: [{ label:'Unidades', data:[420,610,380,290,260], backgroundColor:'#7592ff', borderRadius:6 }] },
+          options: { indexAxis:'y', plugins:{legend:{display:false}}, scales: { x:{grid:grid2}, y:{grid:{display:false}} } }
+        });
+      </script>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

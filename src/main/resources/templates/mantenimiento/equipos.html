@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Equipos · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='equipos-mant')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Equipos', pageSubtitle='Registro de equipos de ecografia y su estado')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Mantenimiento / Equipos</span>
+      </nav>
+
+
+      <div x-data="{ modalEquipo:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Estados: Disponible &middot; Reservado &middot; En uso &middot; En mantenimiento &middot; Fuera de servicio</p>
+          <button @click="modalEquipo=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar equipo</span></button>
+        </div>
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr><th class="table-th">Codigo</th><th class="table-th">Equipo</th><th class="table-th">Sala</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ECO-001</td>
+                <td class="table-td">Ecografo Samsung HS60</td>
+                <td class="table-td">Sala 1</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Disponible</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></a>
+                    <a th:href="@{/mantenimiento}" class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" title="Programar mantenimiento"><i data-lucide="wrench" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalEquipo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ECO-002</td>
+                <td class="table-td">Ecografo Philips Affiniti</td>
+                <td class="table-td">Sala 2</td>
+                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En uso</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></a>
+                    <a th:href="@{/mantenimiento}" class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" title="Programar mantenimiento"><i data-lucide="wrench" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalEquipo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ECO-003</td>
+                <td class="table-td">Ecografo GE Voluson</td>
+                <td class="table-td">Sala 3</td>
+                <td class="table-td"><span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Mantenimiento</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></a>
+                    <a th:href="@{/mantenimiento}" class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" title="Programar mantenimiento"><i data-lucide="wrench" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalEquipo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ECO-004</td>
+                <td class="table-td">Ecografo Mindray DC-70</td>
+                <td class="table-td">Sala 1</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Fuera de servicio</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver historial"><i data-lucide="history" class="h-4 w-4"></i></a>
+                    <a th:href="@{/mantenimiento}" class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" title="Programar mantenimiento"><i data-lucide="wrench" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalEquipo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="modalEquipo" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalEquipo=false">
+          <div @click.outside="modalEquipo=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / editar equipo</h3>
+              <button @click="modalEquipo=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Nombre del equipo</label><input class="form-input" placeholder="Ecografo Samsung HS60" /></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="form-label">Codigo</label><input class="form-input" placeholder="ECO-001" /></div>
+                <div><label class="form-label">Sala</label><select class="form-select"><option>Sala 1</option><option>Sala 2</option><option>Sala 3</option></select></div>
+              </div>
+              <div><label class="form-label">Estado</label><select class="form-select"><option>Disponible</option><option>Reservado</option><option>En uso</option><option>En mantenimiento</option><option>Fuera de servicio</option></select></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalEquipo=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar equipo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

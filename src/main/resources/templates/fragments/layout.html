@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--/* ============================================================
+     FRAGMENT: assets
+     Cabecera comun (Tailwind CDN + config, fuentes, iconos, Alpine)
+     Se incluye en el <head> de cada vista con th:replace.
+============================================================ */-->
+<th:block th:fragment="assets">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script th:inline="javascript">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Outfit', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            brand: {
+              25: '#f2f7ff', 50: '#ecf3ff', 100: '#dde9ff', 200: '#c2d6ff',
+              300: '#9cb9ff', 400: '#7592ff', 500: '#465fff', 600: '#3641f5',
+              700: '#2a31d8', 800: '#252dae', 900: '#262e89', 950: '#161950'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link rel="stylesheet" th:href="@{/css/app.css}" />
+  <style>body{font-family:'Outfit',ui-sans-serif,system-ui;}</style>
+</th:block>
+
+<!--/* ============================================================
+     FRAGMENT: scripts (cierre de body)
+============================================================ */-->
+<th:block th:fragment="scripts">
+  <script>
+    if (window.lucide) { lucide.createIcons(); }
+    document.addEventListener('alpine:init', () => { if (window.lucide) lucide.createIcons(); });
+  </script>
+</th:block>
+</head>
+<body>
+
+<!--/* ============================================================
+     FRAGMENT: sidebar(active)
+     Menu lateral compartido por las 25 vistas. El parametro "active"
+     determina que enlace se resalta.
+============================================================ */-->
+<aside th:fragment="sidebar(active)"
+       x-cloak
+       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+       class="fixed inset-y-0 left-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white transition-transform duration-300 lg:static lg:translate-x-0 dark:border-gray-800 dark:bg-gray-900">
+
+  <div class="flex items-center gap-2.5 px-6 py-6">
+    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-white">
+      <i data-lucide="activity-square" class="h-5 w-5"></i>
+    </div>
+    <div>
+      <p class="text-base font-bold leading-tight text-gray-800 dark:text-white">ECOSALUD</p>
+      <p class="text-[11px] text-gray-400">Centro de Ecografias</p>
+    </div>
+  </div>
+
+  <nav class="no-scrollbar flex-1 overflow-y-auto px-4 pb-6">
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/}"
+                 class="menu-item group"
+                 th:classappend="${active == 'inicio'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="home" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Inicio</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Marketing y Ventas</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/pacientes}"
+                 class="menu-item group"
+                 th:classappend="${active == 'pacientes'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="users" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Pacientes</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/servicios}"
+                 class="menu-item group"
+                 th:classappend="${active == 'servicios'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="stethoscope" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Servicios</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/solicitudes-cita}"
+                 class="menu-item group"
+                 th:classappend="${active == 'solicitudes'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="clipboard-list" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Solicitudes</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/citas}"
+                 class="menu-item group"
+                 th:classappend="${active == 'citas'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="calendar-check-2" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Citas</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Atencion</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/agenda}"
+                 class="menu-item group"
+                 th:classappend="${active == 'agenda'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="calendar-days" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Agenda</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/recepcion}"
+                 class="menu-item group"
+                 th:classappend="${active == 'recepcion'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="clipboard-check" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Recepcion</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Operaciones</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/atenciones}"
+                 class="menu-item group"
+                 th:classappend="${active == 'atenciones'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="activity" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Atenciones</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/agenda-especialistas}"
+                 class="menu-item group"
+                 th:classappend="${active == 'agenda-especialistas'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="user-round-cog" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Especialistas</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/agenda-equipos}"
+                 class="menu-item group"
+                 th:classappend="${active == 'agenda-equipos'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="cpu" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Equipos</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/informes}"
+                 class="menu-item group"
+                 th:classappend="${active == 'informes'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="file-text" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Informes</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Logistica y Almacen</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/inventario}"
+                 class="menu-item group"
+                 th:classappend="${active == 'inventario'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="boxes" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Inventario</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/movimientos}"
+                 class="menu-item group"
+                 th:classappend="${active == 'movimientos'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="arrow-left-right" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Movimientos</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/compras}"
+                 class="menu-item group"
+                 th:classappend="${active == 'compras'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="shopping-cart" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Compras</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/proveedores}"
+                 class="menu-item group"
+                 th:classappend="${active == 'proveedores'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="truck" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Proveedores</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Mantenimiento</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/equipos}"
+                 class="menu-item group"
+                 th:classappend="${active == 'equipos-mant'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="settings-2" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Equipos</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/mantenimiento}"
+                 class="menu-item group"
+                 th:classappend="${active == 'mantenimiento'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="wrench" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Mantenimiento</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/historial-equipo}"
+                 class="menu-item group"
+                 th:classappend="${active == 'historial-equipo'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="history" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Historial</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Gerencia</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/dashboard-gerencial}"
+                 class="menu-item group"
+                 th:classappend="${active == 'dashboard-gerencial'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="layout-dashboard" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/indicadores}"
+                 class="menu-item group"
+                 th:classappend="${active == 'indicadores'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="bar-chart-3" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Indicadores</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/reportes}"
+                 class="menu-item group"
+                 th:classappend="${active == 'reportes'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="file-bar-chart-2" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Reportes</span>
+              </a>
+            </li>
+        </ul>
+
+        <h3 class="mb-3 mt-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Administracion</h3>
+        <ul class="mb-5 flex flex-col gap-1">
+            <li>
+              <a th:href="@{/usuarios}"
+                 class="menu-item group"
+                 th:classappend="${active == 'usuarios'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="user-cog" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Usuarios</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/roles}"
+                 class="menu-item group"
+                 th:classappend="${active == 'roles'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="shield-check" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Roles</span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/permisos}"
+                 class="menu-item group"
+                 th:classappend="${active == 'permisos'} ? 'menu-item-active' : 'menu-item-inactive'">
+                <i data-lucide="key-round" class="h-[18px] w-[18px] shrink-0"></i>
+                <span class="menu-item-text">Permisos</span>
+              </a>
+            </li>
+        </ul>
+
+  </nav>
+
+  <div class="border-t border-gray-200 p-4 dark:border-gray-800">
+    <div class="flex items-center gap-3 rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
+      <img src="https://i.pravatar.cc/80?img=12" class="h-9 w-9 rounded-full object-cover" alt="avatar" />
+      <div class="min-w-0 flex-1">
+        <p class="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">Rosa Delgado</p>
+        <p class="truncate text-xs text-gray-400">Administradora</p>
+      </div>
+      <i data-lucide="log-out" class="h-4 w-4 text-gray-400"></i>
+    </div>
+  </div>
+</aside>
+
+<!--/* ============================================================
+     FRAGMENT: overlay (fondo oscuro en movil cuando el sidebar esta abierto)
+============================================================ */-->
+<div th:fragment="overlay" x-cloak x-show="sidebarOpen" @click="sidebarOpen = false"
+     class="fixed inset-0 z-30 bg-gray-900/40 lg:hidden" x-transition.opacity></div>
+
+<!--/* ============================================================
+     FRAGMENT: topbar(pageTitle, pageSubtitle)
+     Barra superior compartida: boton hamburguesa, buscador,
+     notificaciones, modo oscuro y menu de usuario.
+============================================================ */-->
+<header th:fragment="topbar(pageTitle, pageSubtitle)"
+        class="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-gray-200 bg-white/80 px-4 py-3.5 backdrop-blur sm:px-6 dark:border-gray-800 dark:bg-gray-900/80">
+  <div class="flex items-center gap-3">
+    <button @click="sidebarOpen = !sidebarOpen"
+            class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 lg:hidden dark:border-gray-800 dark:text-gray-300">
+      <i data-lucide="menu" class="h-5 w-5"></i>
+    </button>
+    <div>
+      <h1 class="text-lg font-semibold text-gray-800 dark:text-white/90" th:text="${pageTitle}">Titulo</h1>
+      <p class="text-xs text-gray-400" th:if="${pageSubtitle}" th:text="${pageSubtitle}">Subtitulo</p>
+    </div>
+  </div>
+
+  <div class="hidden max-w-xs flex-1 md:block">
+    <div class="relative">
+      <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></i>
+      <input type="text" placeholder="Buscar paciente, cita, insumo..."
+             class="form-input !py-2 !pl-9 !text-xs" />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-2 sm:gap-3">
+    <button @click="darkMode = !darkMode"
+            class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 dark:border-gray-800 dark:text-gray-300">
+      <i data-lucide="sun" class="h-[18px] w-[18px]" x-show="darkMode"></i>
+      <i data-lucide="moon" class="h-[18px] w-[18px]" x-show="!darkMode"></i>
+    </button>
+    <button class="relative flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 dark:border-gray-800 dark:text-gray-300">
+      <i data-lucide="bell" class="h-[18px] w-[18px]"></i>
+      <span class="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-red-500"></span>
+    </button>
+    <img src="https://i.pravatar.cc/80?img=12" class="h-9 w-9 rounded-full object-cover ring-1 ring-gray-200 dark:ring-gray-700" alt="avatar" />
+  </div>
+</header>
+
+</body>
+</html>

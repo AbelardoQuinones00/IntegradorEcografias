@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard gerencial · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='dashboard-gerencial')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Dashboard gerencial', pageSubtitle='Como esta la empresa ahora mismo')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Gerencia / Dashboard</span>
+      </nav>
+
+
+      <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">
+              <i data-lucide="calendar-check-2" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">32</p>
+          <p class="text-xs text-gray-400">Citas hoy</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+              <i data-lucide="activity" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">27</p>
+          <p class="text-xs text-gray-400">Atenciones</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">
+              <i data-lucide="file-text" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">5</p>
+          <p class="text-xs text-gray-400">Informes pendientes</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+              <i data-lucide="user-x" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">8%</p>
+          <p class="text-xs text-gray-400">Inasistencias</p>
+        </div>
+      </div>
+
+      <div class="mb-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div class="card p-5 lg:col-span-2">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Citas por periodo (ultimos 7 dias)</h3>
+          <canvas id="chartCitas" height="130"></canvas>
+        </div>
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Servicios mas solicitados</h3>
+          <canvas id="chartServicios" height="200"></canvas>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Atenciones por especialista</h3>
+          <canvas id="chartEspecialistas" height="180"></canvas>
+        </div>
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Uso de equipos</h3>
+          <canvas id="chartEquipos" height="180"></canvas>
+        </div>
+        <div class="card p-5">
+          <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Informes pendientes vs finalizados</h3>
+          <canvas id="chartInformes" height="180"></canvas>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+      <script>
+        const brand = '#465fff';
+        const grid = { color: 'rgba(148,163,184,0.15)' };
+        new Chart(document.getElementById('chartCitas'), {
+          type: 'line',
+          data: { labels: ['22','23','24','25','26','27','28'],
+            datasets: [{ label: 'Citas', data: [24,28,22,30,26,29,32], borderColor: brand, backgroundColor: 'rgba(70,95,255,0.12)', fill: true, tension: 0.35 }] },
+          options: { plugins: { legend: { display:false } }, scales: { y: { grid }, x: { grid: { display:false } } } }
+        });
+        new Chart(document.getElementById('chartServicios'), {
+          type: 'doughnut',
+          data: { labels: ['Abdominal','Obstetrica','Renal','Doppler','Tiroides'],
+            datasets: [{ data: [32,26,18,14,10], backgroundColor: ['#465fff','#7592ff','#9cb9ff','#c2d6ff','#dde9ff'] }] },
+          options: { plugins: { legend: { position:'bottom', labels:{ boxWidth:8, font:{size:10} } } } }
+        });
+        new Chart(document.getElementById('chartEspecialistas'), {
+          type: 'bar',
+          data: { labels: ['Dr. Perez','Dra. Vega','Dr. Salas'],
+            datasets: [{ label:'Atenciones', data:[48,39,27], backgroundColor: brand, borderRadius: 6 }] },
+          options: { plugins: { legend: { display:false } }, scales: { y: { grid }, x: { grid: { display:false } } } }
+        });
+        new Chart(document.getElementById('chartEquipos'), {
+          type: 'bar',
+          data: { labels: ['ECO-001','ECO-002','ECO-003','ECO-004'],
+            datasets: [{ label:'Horas de uso', data:[62,54,20,8], backgroundColor: '#7592ff', borderRadius: 6 }] },
+          options: { indexAxis: 'y', plugins: { legend: { display:false } }, scales: { x: { grid }, y: { grid: { display:false } } } }
+        });
+        new Chart(document.getElementById('chartInformes'), {
+          type: 'doughnut',
+          data: { labels: ['Finalizados','Pendientes'], datasets: [{ data: [82,18], backgroundColor: ['#22c55e','#f59e0b'] }] },
+          options: { plugins: { legend: { position:'bottom', labels:{ boxWidth:8, font:{size:10} } } } }
+        });
+      </script>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

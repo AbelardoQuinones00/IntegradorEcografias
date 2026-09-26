@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agenda de equipos · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='agenda-equipos')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de equipos', pageSubtitle='Citas asignadas, disponibilidad y mantenimiento por equipo')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Operaciones / Equipos</span>
+      </nav>
+
+
+      <div class="mb-4 rounded-lg bg-yellow-50 p-3 text-xs text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">
+        <i data-lucide="alert-triangle" class="mr-1 inline h-3.5 w-3.5"></i>
+        Un equipo en mantenimiento o fuera de servicio no aparece como disponible para una nueva cita.
+      </div>
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div class="card p-4 lg:col-span-1">
+          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Equipos</h3>
+          <div class="space-y-2">
+          <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-001</p>
+              <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Disponible</span>
+            </div>
+            <p class="mt-1 text-xs text-gray-400">Ecografo Samsung &middot; Sala 1</p>
+          </button>
+          <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-002</p>
+              <span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En uso</span>
+            </div>
+            <p class="mt-1 text-xs text-gray-400">Ecografo Philips &middot; Sala 2</p>
+          </button>
+          <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-003</p>
+              <span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Mantenimiento</span>
+            </div>
+            <p class="mt-1 text-xs text-gray-400">Ecografo GE &middot; Sala 3</p>
+          </button>
+          </div>
+        </div>
+        <div class="card p-5 lg:col-span-2">
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">EQUIPO ECO-001</h3>
+              <p class="text-xs text-gray-400">Lunes 28 de septiembre</p>
+            </div>
+            <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Disponible</span>
+          </div>
+          <div class="divide-y divide-gray-100 rounded-lg border border-gray-100 dark:divide-gray-800 dark:border-gray-800">
+          <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 dark:bg-brand-500/10 px-4 py-3">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">08:00</span>
+            <span class="h-2 w-2 rounded-full bg-brand-500"></span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-001</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 dark:bg-brand-500/10 px-4 py-3">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">09:00</span>
+            <span class="h-2 w-2 rounded-full bg-brand-500"></span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-002</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-dashed border-gray-200 dark:border-gray-700 px-4 py-3">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">10:00</span>
+            <span class="h-2 w-2 rounded-full bg-gray-300"></span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">Disponible</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-orange-400 bg-orange-50/60 dark:bg-orange-500/10 px-4 py-3">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">11:00</span>
+            <span class="h-2 w-2 rounded-full bg-orange-500"></span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">Mantenimiento</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-dashed border-gray-200 dark:border-gray-700 px-4 py-3">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">12:00</span>
+            <span class="h-2 w-2 rounded-full bg-gray-300"></span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">Disponible</span>
+          </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

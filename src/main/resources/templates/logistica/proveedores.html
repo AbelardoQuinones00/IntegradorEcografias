@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Proveedores · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='proveedores')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Proveedores', pageSubtitle='Registro y gestion de proveedores (RF046)')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Logistica y Almacen / Proveedores</span>
+      </nav>
+
+
+      <div x-data="{ modalProv:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <p class="text-sm text-gray-500 dark:text-gray-400">RF046 &middot; Proveedores de insumos y equipos</p>
+          <button @click="modalProv=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar proveedor</span></button>
+        </div>
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr><th class="table-th">Proveedor</th><th class="table-th">RUC</th><th class="table-th">Correo</th><th class="table-th">Telefono</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Distribuidora Medica SAC</td>
+                <td class="table-td">20458712369</td>
+                <td class="table-td">ventas@dismedica.pe</td>
+                <td class="table-td">01 445 8712</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalProv=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Insumos Hospitalarios EIRL</td>
+                <td class="table-td">20558965214</td>
+                <td class="table-td">contacto@insuhosp.pe</td>
+                <td class="table-td">01 221 5544</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalProv=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Bioimagen Peru SAC</td>
+                <td class="table-td">20369852147</td>
+                <td class="table-td">info@bioimagen.pe</td>
+                <td class="table-td">01 887 1122</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Inactivo</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalProv=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver informacion"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="modalProv" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalProv=false">
+          <div @click.outside="modalProv=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / editar proveedor</h3>
+              <button @click="modalProv=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Razon social</label><input class="form-input" placeholder="Distribuidora Medica SAC" /></div>
+              <div><label class="form-label">RUC</label><input class="form-input" placeholder="20458712369" /></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="form-label">Correo</label><input class="form-input" placeholder="ventas@empresa.pe" /></div>
+                <div><label class="form-label">Telefono</label><input class="form-input" placeholder="01 445 8712" /></div>
+              </div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalProv=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar proveedor</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

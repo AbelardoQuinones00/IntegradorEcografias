@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agenda de especialistas · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='agenda-especialistas')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de especialistas', pageSubtitle='Horario, citas, disponibilidad y atenciones por especialista (RF034)')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Operaciones / Especialistas</span>
+      </nav>
+
+
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div class="card p-4 lg:col-span-1">
+          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Especialistas</h3>
+          <div class="space-y-2">
+          <button class="flex w-full items-center gap-3 rounded-xl border border-brand-500 bg-brand-50 dark:bg-brand-500/10 p-3 text-left">
+            <img src="https://i.pravatar.cc/80?u=Dr. Carlos Perez" class="h-10 w-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Dr. Carlos Perez</p>
+              <p class="text-xs text-gray-400">Ecografia general</p>
+            </div>
+          </button>
+          <button class="flex w-full items-center gap-3 rounded-xl border border-gray-100 dark:border-gray-800 p-3 text-left">
+            <img src="https://i.pravatar.cc/80?u=Dra. Lucia Vega" class="h-10 w-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Dra. Lucia Vega</p>
+              <p class="text-xs text-gray-400">Doppler / obstetricia</p>
+            </div>
+          </button>
+          </div>
+        </div>
+        <div class="card p-5 lg:col-span-2">
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Dr. Carlos Perez</h3>
+              <p class="text-xs text-gray-400">Lunes 28 de septiembre</p>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn btn-outline !py-1.5"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+              <button class="btn btn-outline !py-1.5"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+            </div>
+          </div>
+          <div class="divide-y divide-gray-100 rounded-lg border border-gray-100 dark:divide-gray-800 dark:border-gray-800">
+          <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">08:00</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-001 &middot; Ana Perez</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">09:00</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-002 &middot; Luis Ramos</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-dashed border-gray-200 px-4 py-3 dark:border-gray-700">
+            <span class="w-14 text-sm font-semibold text-gray-400">10:00</span>
+            <span class="flex-1 text-xs font-medium uppercase text-gray-300 dark:text-gray-600">Disponible</span>
+          </div>
+          <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
+            <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">11:00</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-003 &middot; Maria Lopez</span>
+          </div>
+          </div>
+          <div class="mt-4 grid grid-cols-3 gap-3 text-center text-xs">
+            <div class="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"><p class="text-base font-bold text-gray-700 dark:text-gray-200">6</p><p class="text-gray-400">Citas hoy</p></div>
+            <div class="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"><p class="text-base font-bold text-gray-700 dark:text-gray-200">4</p><p class="text-gray-400">Atenciones</p></div>
+            <div class="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"><p class="text-base font-bold text-gray-700 dark:text-gray-200">2</p><p class="text-gray-400">Disponibles</p></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

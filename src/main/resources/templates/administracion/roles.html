@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Roles · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='roles')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Roles', pageSubtitle='Roles del sistema y su alcance funcional')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Administracion / Roles</span>
+      </nav>
+
+
+      <div x-data="{ modalRol:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap gap-2"><button class="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300">Administrador</button><button class="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300">Recepcionista</button><button class="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300">Especialista</button><button class="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300">Almacenero</button><button class="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300">Gerencia</button></div>
+          <button @click="modalRol=true" class="btn btn-primary"><i data-lucide="shield-plus" class="h-4 w-4"></i><span>Nuevo rol</span></button>
+        </div>
+
+        <div class="card p-5">
+          <h3 class="mb-1 text-sm font-semibold text-gray-700 dark:text-gray-200">ROL: RECEPCIONISTA</h3>
+          <p class="mb-4 text-xs text-gray-400">Matriz de permisos por modulo del sistema</p>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50"><tr><th class="table-th">Permiso</th><th class="table-th text-center">Administrador</th><th class="table-th text-center">Recepcionista</th><th class="table-th text-center">Especialista</th><th class="table-th text-center">Almacenero</th><th class="table-th text-center">Gerencia</th></tr></thead>
+              <tbody><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Consultar pacientes</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Registrar pacientes</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Gestionar citas</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Registrar llegadas</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Gestionar inventario</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Gestionar usuarios</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td></tr><tr class="table-row border-t border-gray-100 dark:border-gray-800"><td class="table-td font-medium">Dashboard gerencial</td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='minus' class='mx-auto h-4 w-4 text-gray-300'></i></td><td class="table-td text-center"><i data-lucide='check' class='mx-auto h-4 w-4 text-green-500'></i></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="modalRol" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalRol=false">
+          <div @click.outside="modalRol=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Nuevo rol</h3>
+              <button @click="modalRol=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Nombre del rol</label><input class="form-input" placeholder="Recepcionista" /></div>
+              <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="2"></textarea></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalRol=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Crear rol</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movimientos · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='movimientos')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Movimientos', pageSubtitle='Historial de entradas, salidas y consumo de insumos (RF016)')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Logistica y Almacen / Movimientos</span>
+      </nav>
+
+
+      <div x-data="{ modalMov:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex gap-2">
+            <select class="form-select !w-auto"><option>Todos los tipos</option><option>Entrada</option><option>Salida</option><option>Consumo</option></select>
+            <input type="date" class="form-input !w-auto" />
+          </div>
+          <button @click="modalMov=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar movimiento</span></button>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr><th class="table-th">Fecha</th><th class="table-th">Insumo</th><th class="table-th">Tipo</th><th class="table-th">Cantidad</th><th class="table-th">Usuario</th></tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td">25/09 sep</td>
+                <td class="table-td font-medium">Guantes</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Entrada</span></td>
+                <td class="table-td">100</td>
+                <td class="table-td">Admin</td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td">25/09 sep</td>
+                <td class="table-td font-medium">Guantes</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Salida</span></td>
+                <td class="table-td">20</td>
+                <td class="table-td">Almacen</td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td">26/09 sep</td>
+                <td class="table-td font-medium">Gel ecografico</td>
+                <td class="table-td"><span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Consumo</span></td>
+                <td class="table-td">10</td>
+                <td class="table-td">Operaciones</td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td">26/09 sep</td>
+                <td class="table-td font-medium">Papel termico</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Entrada</span></td>
+                <td class="table-td">60</td>
+                <td class="table-td">Admin</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="modalMov" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalMov=false">
+          <div @click.outside="modalMov=false" x-transition class="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar movimiento</h3>
+              <button @click="modalMov=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Insumo</label><select class="form-select"><option>Guantes</option><option>Gel ecografico</option><option>Papel termico</option></select></div>
+              <div><label class="form-label">Tipo</label><select class="form-select"><option>Entrada</option><option>Salida</option><option>Consumo</option></select></div>
+              <div><label class="form-label">Cantidad</label><input class="form-input" placeholder="10" /></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalMov=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Registrar (RF016)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

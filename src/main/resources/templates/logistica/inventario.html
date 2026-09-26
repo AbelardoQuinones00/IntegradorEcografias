@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventario · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='inventario')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Inventario', pageSubtitle='Insumos, stock minimo y consumo (RF015, RF027-29)')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Logistica y Almacen / Inventario</span>
+      </nav>
+
+
+      <div x-data="{ modalInsumo:false, modalConsumo:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div class="relative w-full max-w-sm">
+            <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></i>
+            <input type="text" placeholder="Buscar insumo..." class="form-input !pl-9" />
+          </div>
+          <button @click="modalInsumo=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar insumo</span></button>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr><th class="table-th">Insumo</th><th class="table-th">Stock</th><th class="table-th">Minimo</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Gel ecografico</td>
+                <td class="table-td">35</td>
+                <td class="table-td">20</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Guantes</td>
+                <td class="table-td">12</td>
+                <td class="table-td">20</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">BAJO</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Papel termico</td>
+                <td class="table-td">50</td>
+                <td class="table-td">15</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Alcohol en gel</td>
+                <td class="table-td">18</td>
+                <td class="table-td">15</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">Sabanas descartables</td>
+                <td class="table-td">8</td>
+                <td class="table-td">15</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">BAJO</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="modalInsumo" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalInsumo=false">
+          <div @click.outside="modalInsumo=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / editar insumo</h3>
+              <button @click="modalInsumo=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Nombre del insumo</label><input class="form-input" placeholder="Gel ecografico" /></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="form-label">Stock actual</label><input class="form-input" placeholder="35" /></div>
+                <div><label class="form-label">Stock minimo</label><input class="form-input" placeholder="20" /></div>
+              </div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalInsumo=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar insumo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-show="modalConsumo" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalConsumo=false">
+          <div @click.outside="modalConsumo=false" x-transition class="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar consumo</h3>
+              <button @click="modalConsumo=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Cantidad consumida</label><input class="form-input" placeholder="10" /></div>
+              <div><label class="form-label">Atencion relacionada</label><input class="form-input" placeholder="AT-001" /></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalConsumo=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Registrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

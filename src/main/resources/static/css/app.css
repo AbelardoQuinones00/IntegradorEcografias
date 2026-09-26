@@ -1,0 +1,217 @@
+/* ECOSALUD - estilos de soporte para el layout TailAdmin (Tailwind vía CDN) */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(203 213 225);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgb(51 65 85);
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.menu-item-inactive {
+  color: rgb(71 85 105);
+}
+.menu-item-inactive:hover {
+  background-color: rgb(248 250 252);
+  color: rgb(30 41 59);
+}
+.dark .menu-item-inactive {
+  color: rgb(148 163 184);
+}
+.dark .menu-item-inactive:hover {
+  background-color: rgb(30 41 59);
+  color: rgb(241 245 249);
+}
+.menu-item-active {
+  background-color: #ecf3ff;
+  color: #465fff;
+}
+.dark .menu-item-active {
+  background-color: rgba(70, 95, 255, 0.15);
+  color: #7592ff;
+}
+
+.menu-dropdown-item {
+  display: block;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+.menu-dropdown-item-inactive {
+  color: rgb(100 116 139);
+}
+.menu-dropdown-item-inactive:hover {
+  background-color: rgb(248 250 252);
+  color: rgb(30 41 59);
+}
+.dark .menu-dropdown-item-inactive {
+  color: rgb(148 163 184);
+}
+.dark .menu-dropdown-item-inactive:hover {
+  background-color: rgb(30 41 59);
+}
+.menu-dropdown-item-active {
+  background-color: #ecf3ff;
+  color: #465fff;
+}
+.dark .menu-dropdown-item-active {
+  background-color: rgba(70, 95, 255, 0.15);
+  color: #7592ff;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background-color: #465fff;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #3641f5;
+}
+.btn-outline {
+  border: 1px solid rgb(226 232 240);
+  color: rgb(51 65 85);
+  background-color: #fff;
+}
+.btn-outline:hover {
+  background-color: rgb(248 250 252);
+}
+.dark .btn-outline {
+  border-color: rgb(51 65 85);
+  color: rgb(226 232 240);
+  background-color: transparent;
+}
+.dark .btn-outline:hover {
+  background-color: rgb(30 41 59);
+}
+.btn-danger-outline {
+  border: 1px solid rgb(254 202 202);
+  color: rgb(220 38 38);
+  background-color: #fff;
+}
+.btn-danger-outline:hover {
+  background-color: rgb(254 242 242);
+}
+
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid rgb(226 232 240);
+  background-color: #fff;
+}
+.dark .card {
+  border-color: rgb(30 41 59);
+  background-color: rgb(15 23 42);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(226 232 240);
+  background-color: #fff;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.875rem;
+  color: rgb(15 23 42);
+  outline: none;
+}
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: #465fff;
+  box-shadow: 0 0 0 3px rgba(70, 95, 255, 0.15);
+}
+.dark .form-input,
+.dark .form-select,
+.dark .form-textarea {
+  border-color: rgb(51 65 85);
+  background-color: rgb(15 23 42);
+  color: rgb(226 232 240);
+}
+.form-label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgb(51 65 85);
+}
+.dark .form-label {
+  color: rgb(203 213 225);
+}
+
+.table-th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(100 116 139);
+  white-space: nowrap;
+}
+.dark .table-th {
+  color: rgb(148 163 184);
+}
+.table-td {
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  color: rgb(51 65 85);
+  white-space: nowrap;
+}
+.dark .table-td {
+  color: rgb(203 213 225);
+}
+.table-row:hover {
+  background-color: rgb(248 250 252);
+}
+.dark .table-row:hover {
+  background-color: rgba(30, 41, 59, 0.5);
+}

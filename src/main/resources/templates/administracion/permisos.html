@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Permisos · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='permisos')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Permisos', pageSubtitle='Permisos por rol, agrupados por modulo del sistema')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Administracion / Permisos</span>
+      </nav>
+
+
+      <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <label class="form-label">Rol a configurar</label>
+          <select class="form-select !w-auto"><option>Recepcionista</option><option>Especialista</option><option>Almacenero</option><option>Gerencia</option><option>Administrador</option></select>
+        </div>
+        <button class="btn btn-primary"><i data-lucide="save" class="h-4 w-4"></i><span>Guardar permisos</span></button>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Marketing y Ventas</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Pacientes</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Servicios</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Solicitudes</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Citas</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Atencion</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Agenda</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Recepcion</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Operaciones</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Atenciones</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Especialistas</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Equipos</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Informes</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Logistica y Almacen</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Inventario</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Movimientos</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Compras</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Proveedores</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Mantenimiento</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Equipos</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Mantenimiento</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Historial</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Gerencia</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Dashboard</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Indicadores</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Reportes</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Administracion</p>
+          <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Usuarios</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Roles</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
+                <span class="text-gray-600 dark:text-gray-300">Permisos</span>
+                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
+              </label>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

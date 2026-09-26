@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inicio · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='inicio')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Inicio', pageSubtitle='Panel general del sistema')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Inicio</span>
+      </nav>
+
+
+      <div class="mb-6 rounded-2xl bg-gradient-to-r from-brand-500 to-brand-700 p-6 text-white sm:p-8">
+        <p class="text-xs font-medium uppercase tracking-wider text-brand-100">Bienvenida</p>
+        <h2 class="mt-1 text-2xl font-bold sm:text-3xl">Hola, Rosa 👋</h2>
+        <p class="mt-2 max-w-xl text-sm text-brand-100">Este es el panel de inicio de ECOSALUD. Desde aqui puedes acceder
+          rapidamente a Marketing y Ventas, Atencion, Operaciones, Logistica, Mantenimiento, Gerencia y Administracion.</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a th:href="@{/citas}" class="btn bg-white text-brand-600 hover:bg-brand-50"><i data-lucide="calendar-plus" class="h-4 w-4"></i><span>Nueva cita</span></a>
+          <a th:href="@{/pacientes}" class="btn border border-white/40 text-white hover:bg-white/10"><i data-lucide="user-plus" class="h-4 w-4"></i><span>Registrar paciente</span></a>
+        </div>
+      </div>
+
+      <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">
+              <i data-lucide="calendar-check-2" class="h-5 w-5"></i>
+            </div>
+            <span class="flex items-center gap-1 text-xs font-medium text-green-600"><i data-lucide="trending-up" class="h-3.5 w-3.5"></i>+6 vs ayer</span>
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">32</p>
+          <p class="text-xs text-gray-400">Citas de hoy</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+              <i data-lucide="activity" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">9</p>
+          <p class="text-xs text-gray-400">Atenciones en curso</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">
+              <i data-lucide="file-text" class="h-5 w-5"></i>
+            </div>
+            
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">5</p>
+          <p class="text-xs text-gray-400">Informes pendientes</p>
+        </div>
+        
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+              <i data-lucide="user-x" class="h-5 w-5"></i>
+            </div>
+            <span class="flex items-center gap-1 text-xs font-medium text-red-500"><i data-lucide="trending-down" class="h-3.5 w-3.5"></i>-1.2%</span>
+          </div>
+          <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">8%</p>
+          <p class="text-xs text-gray-400">Inasistencias (mes)</p>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Accesos rapidos por area</h3>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <a th:href="@{/pacientes}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400"><i data-lucide="megaphone" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Marketing y Ventas</p>
+              <p class="mt-0.5 text-xs text-gray-400">Pacientes, servicios, solicitudes y citas</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/agenda}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"><i data-lucide="clipboard-check" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Atencion</p>
+              <p class="mt-0.5 text-xs text-gray-400">Agenda y recepcion diaria</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/atenciones}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400"><i data-lucide="activity" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Operaciones</p>
+              <p class="mt-0.5 text-xs text-gray-400">Atenciones, especialistas y equipos</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/inventario}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400"><i data-lucide="boxes" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Logistica y Almacen</p>
+              <p class="mt-0.5 text-xs text-gray-400">Inventario, movimientos y compras</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/equipos}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400"><i data-lucide="wrench" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Mantenimiento</p>
+              <p class="mt-0.5 text-xs text-gray-400">Equipos y mantenimiento preventivo</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/dashboard-gerencial}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400"><i data-lucide="layout-dashboard" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Gerencia</p>
+              <p class="mt-0.5 text-xs text-gray-400">Indicadores y reportes</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+          <a th:href="@{/usuarios}" class="card group flex flex-col gap-3 p-5 transition hover:border-brand-300 hover:shadow-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"><i data-lucide="user-cog" class="h-5 w-5"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-gray-800 dark:text-white">Administracion</p>
+              <p class="mt-0.5 text-xs text-gray-400">Usuarios, roles y permisos</p>
+            </div>
+            <span class="mt-auto flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">Entrar <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Recorrido del sistema (procesos de negocio)</h3>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-brand-500">PROCESO 1 · Captacion y venta</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Paciente &rarr; Servicio &rarr; Solicitud &rarr; Cita &rarr; Confirmacion</p>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-blue-500">PROCESO 2 · Recepcion</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Cita confirmada &rarr; Paciente llega &rarr; Verificacion &rarr; Atencion</p>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-purple-500">PROCESO 3 · Prestacion del servicio</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Atencion &rarr; Especialista &rarr; Sala &rarr; Equipo &rarr; Ecografia &rarr; Resultado</p>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-orange-500">PROCESO 4 · Informe</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Ecografia realizada &rarr; Resultado &rarr; Informe &rarr; Validacion &rarr; Entrega</p>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-green-500">PROCESO 5 · Logistica</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Proveedor &rarr; Compra &rarr; Entrada &rarr; Inventario &rarr; Consumo &rarr; Salida</p>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-4 dark:border-gray-800">
+            <p class="mb-2 text-xs font-semibold text-red-500">PROCESO 6 · Gestion gerencial</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Todas las areas &rarr; Informacion registrada &rarr; Indicadores &rarr; Reportes &rarr; Gerencia</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

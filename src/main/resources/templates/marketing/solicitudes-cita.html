@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      x-data="{ sidebarOpen: false, darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false') }"
+      x-init="$watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
+      :class="{ 'dark': darkMode }">
+<head>
+  <meta charset="UTF-8" />
+  <title>Solicitudes de cita · ECOSALUD</title>
+  <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
+<div class="flex">
+  <aside th:replace="~{fragments/layout :: sidebar(active='solicitudes')}"></aside>
+  <div th:replace="~{fragments/layout :: overlay}"></div>
+
+  <div class="flex min-h-screen w-full flex-1 flex-col">
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Solicitudes de cita', pageSubtitle='Solicitudes enviadas por pacientes, pendientes de revision')}"></header>
+
+    <main class="flex-1 p-4 sm:p-6">
+      <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
+        <a th:href="@{/}" class="hover:text-brand-500">Inicio</a>
+        <i data-lucide="chevron-right" class="h-3 w-3"></i>
+        <span class="text-gray-500 dark:text-gray-300">Marketing y Ventas / Solicitudes</span>
+      </nav>
+
+
+      <div class="mb-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-yellow-600">6</p><p class="text-xs text-gray-400">Pendientes</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-blue-600">3</p><p class="text-xs text-gray-400">Revisadas</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-green-600">21</p><p class="text-xs text-gray-400">Aprobadas (mes)</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-red-600">2</p><p class="text-xs text-gray-400">Rechazadas (mes)</p></div>
+      </div>
+
+      <div class="card overflow-hidden">
+        <div class="flex items-center justify-between border-b border-gray-100 p-4 dark:border-gray-800">
+          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Solicitudes de cita del paciente</h3>
+          <p class="text-xs text-gray-400">RF041 &middot; solicitudes registradas por el paciente y revisadas por personal autorizado</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-800/50">
+              <tr>
+                <th class="table-th">Solicitud</th>
+                <th class="table-th">Paciente</th>
+                <th class="table-th">Servicio</th>
+                <th class="table-th">Fecha preferida</th>
+                <th class="table-th">Estado</th>
+                <th class="table-th">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">SOL-001</td>
+                <td class="table-td">Ana Perez</td>
+                <td class="table-td">Ecografia abdominal</td>
+                <td class="table-td">28/09 sep</td>
+                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Pendiente</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">SOL-002</td>
+                <td class="table-td">Luis Ramos</td>
+                <td class="table-td">Doppler vascular</td>
+                <td class="table-td">29/09 sep</td>
+                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Revisada</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">SOL-003</td>
+                <td class="table-td">Maria Lopez</td>
+                <td class="table-td">Ecografia obstetrica</td>
+                <td class="table-td">30/09 sep</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Aprobada</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">SOL-004</td>
+                <td class="table-td">Jose Mendoza</td>
+                <td class="table-td">Ecografia renal</td>
+                <td class="table-td">01/10 sep</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Rechazada</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
