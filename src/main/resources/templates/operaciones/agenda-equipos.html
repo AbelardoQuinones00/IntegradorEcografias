@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de equipos', pageSubtitle='Citas asignadas, disponibilidad y mantenimiento por equipo')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de equipos', pageSubtitle='Equipo.consultarDisponibilidad() por fecha (RF034)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -26,40 +26,40 @@
 
       <div class="mb-4 rounded-lg bg-yellow-50 p-3 text-xs text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">
         <i data-lucide="alert-triangle" class="mr-1 inline h-3.5 w-3.5"></i>
-        Un equipo en mantenimiento o fuera de servicio no aparece como disponible para una nueva cita.
+        estado_equipo = MANTENIMIENTO o FUERA_DE_SERVICIO no permite Equipo.consultarDisponibilidad() para una nueva cita.
       </div>
       <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <div class="card p-4 lg:col-span-1">
-          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Equipos</h3>
+          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Equipos (cita_equipo N:M)</h3>
           <div class="space-y-2">
           <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
             <div class="flex items-center justify-between">
               <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-001</p>
               <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Disponible</span>
             </div>
-            <p class="mt-1 text-xs text-gray-400">Ecografo Samsung &middot; Sala 1</p>
+            <p class="mt-1 text-xs text-gray-400">Ecografo Samsung HS60 &middot; Sala 1</p>
           </button>
           <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
             <div class="flex items-center justify-between">
               <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-002</p>
               <span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En uso</span>
             </div>
-            <p class="mt-1 text-xs text-gray-400">Ecografo Philips &middot; Sala 2</p>
+            <p class="mt-1 text-xs text-gray-400">Ecografo Philips Affiniti &middot; Sala 2</p>
           </button>
           <button class="w-full rounded-xl border border-gray-100 p-3 text-left dark:border-gray-800">
             <div class="flex items-center justify-between">
               <p class="text-sm font-semibold text-gray-800 dark:text-white">ECO-003</p>
               <span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Mantenimiento</span>
             </div>
-            <p class="mt-1 text-xs text-gray-400">Ecografo GE &middot; Sala 3</p>
+            <p class="mt-1 text-xs text-gray-400">Ecografo GE Voluson &middot; Sala 3</p>
           </button>
           </div>
         </div>
         <div class="card p-5 lg:col-span-2">
           <div class="mb-4 flex items-center justify-between">
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">EQUIPO ECO-001</h3>
-              <p class="text-xs text-gray-400">Lunes 28 de septiembre</p>
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">ECO-001 &middot; Ecografo Samsung HS60</h3>
+              <p class="text-xs text-gray-400">Marca Samsung &middot; Modelo HS60 &middot; Serie SNH60-2201 &middot; Sala 1</p>
             </div>
             <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Disponible</span>
           </div>
@@ -67,12 +67,12 @@
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 dark:bg-brand-500/10 px-4 py-3">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">08:00</span>
             <span class="h-2 w-2 rounded-full bg-brand-500"></span>
-            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-001</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">CIT-101</span>
           </div>
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 dark:bg-brand-500/10 px-4 py-3">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">09:00</span>
             <span class="h-2 w-2 rounded-full bg-brand-500"></span>
-            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-002</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">CIT-103</span>
           </div>
           <div class="flex items-center gap-4 border-l-4 border-dashed border-gray-200 dark:border-gray-700 px-4 py-3">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">10:00</span>

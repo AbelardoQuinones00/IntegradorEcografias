@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de especialistas', pageSubtitle='Horario, citas, disponibilidad y atenciones por especialista (RF034)')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda de especialistas', pageSubtitle='Especialista.consultarAgenda() / consultarDisponibilidad() (RF034)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -26,20 +26,20 @@
 
       <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <div class="card p-4 lg:col-span-1">
-          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Especialistas</h3>
+          <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Especialistas (especialidad / colegiatura)</h3>
           <div class="space-y-2">
           <button class="flex w-full items-center gap-3 rounded-xl border border-brand-500 bg-brand-50 dark:bg-brand-500/10 p-3 text-left">
             <img src="https://i.pravatar.cc/80?u=Dr. Carlos Perez" class="h-10 w-10 rounded-full object-cover" />
             <div>
               <p class="text-sm font-semibold text-gray-800 dark:text-white">Dr. Carlos Perez</p>
-              <p class="text-xs text-gray-400">Ecografia general</p>
+              <p class="text-xs text-gray-400">Ecografia general &middot; CMP 45123</p>
             </div>
           </button>
           <button class="flex w-full items-center gap-3 rounded-xl border border-gray-100 dark:border-gray-800 p-3 text-left">
             <img src="https://i.pravatar.cc/80?u=Dra. Lucia Vega" class="h-10 w-10 rounded-full object-cover" />
             <div>
               <p class="text-sm font-semibold text-gray-800 dark:text-white">Dra. Lucia Vega</p>
-              <p class="text-xs text-gray-400">Doppler / obstetricia</p>
+              <p class="text-xs text-gray-400">Doppler / obstetricia &middot; CMP 51890</p>
             </div>
           </button>
           </div>
@@ -47,8 +47,8 @@
         <div class="card p-5 lg:col-span-2">
           <div class="mb-4 flex items-center justify-between">
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Dr. Carlos Perez</h3>
-              <p class="text-xs text-gray-400">Lunes 28 de septiembre</p>
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Dr. Carlos Perez &middot; Ecografia general</h3>
+              <p class="text-xs text-gray-400">CMP 45123 &middot; Lunes 28 de septiembre</p>
             </div>
             <div class="flex gap-2">
               <button class="btn btn-outline !py-1.5"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
@@ -58,11 +58,11 @@
           <div class="divide-y divide-gray-100 rounded-lg border border-gray-100 dark:divide-gray-800 dark:border-gray-800">
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">08:00</span>
-            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-001 &middot; Ana Perez</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">CIT-101 &middot; Ana Perez Gomez</span>
           </div>
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">09:00</span>
-            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-002 &middot; Luis Ramos</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">CIT-103 &middot; Maria Lopez Vera</span>
           </div>
           <div class="flex items-center gap-4 border-l-4 border-dashed border-gray-200 px-4 py-3 dark:border-gray-700">
             <span class="w-14 text-sm font-semibold text-gray-400">10:00</span>
@@ -70,7 +70,7 @@
           </div>
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 text-sm font-semibold text-gray-700 dark:text-gray-200">11:00</span>
-            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">AT-003 &middot; Maria Lopez</span>
+            <span class="flex-1 text-sm text-gray-700 dark:text-gray-200">CIT-105 &middot; Jose Mendoza Rios</span>
           </div>
           </div>
           <div class="mt-4 grid grid-cols-3 gap-3 text-center text-xs">

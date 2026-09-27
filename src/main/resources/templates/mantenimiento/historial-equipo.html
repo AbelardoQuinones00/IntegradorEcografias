@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Historial de equipo', pageSubtitle='Linea de tiempo de uso, mantenimiento y cambios de estado')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Historial de equipo', pageSubtitle='Linea de tiempo: mantenimiento y uso en citas')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -29,13 +29,13 @@
           <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="cpu" class="h-5 w-5"></i></div>
           <div>
             <h2 class="text-base font-bold text-gray-800 dark:text-white">ECO-001</h2>
-            <p class="text-xs text-gray-400">Ecografo Samsung HS60 &middot; Sala 1</p>
+            <p class="text-xs text-gray-400">Ecografo Samsung HS60 &middot; Serie SNH60-2201 &middot; Sala 1</p>
           </div>
         </div>
         <select class="form-select !w-auto"><option>ECO-001</option><option>ECO-002</option><option>ECO-003</option><option>ECO-004</option></select>
       </div>
       <div class="card p-6">
-        <h3 class="mb-5 text-sm font-semibold text-gray-700 dark:text-gray-200">Historial (RF032)</h3>
+        <h3 class="mb-5 text-sm font-semibold text-gray-700 dark:text-gray-200">Historial (RF032) &middot; mantenimiento_equipo + cita_equipo</h3>
         
           <div class="flex gap-4">
             <div class="flex flex-col items-center">
@@ -43,8 +43,8 @@
               <div class="mt-1 h-full w-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
             </div>
             <div class="pb-6">
-              <p class="text-xs text-gray-400">15/09 sep 2026</p>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Mantenimiento preventivo</p>
+              <p class="text-xs text-gray-400">15/09/2026</p>
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Mantenimiento preventivo completado &middot; S/ 150.00</p>
             </div>
           </div>
           <div class="flex gap-4">
@@ -53,8 +53,8 @@
               <div class="mt-1 h-full w-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
             </div>
             <div class="pb-6">
-              <p class="text-xs text-gray-400">20/09 sep 2026</p>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Utilizado en AT-034</p>
+              <p class="text-xs text-gray-400">20/09/2026</p>
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Utilizado en atencion AT-034 (cita_equipo)</p>
             </div>
           </div>
           <div class="flex gap-4">
@@ -63,8 +63,8 @@
               <div class="mt-1 h-full w-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
             </div>
             <div class="pb-6">
-              <p class="text-xs text-gray-400">22/09 sep 2026</p>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Utilizado en AT-041</p>
+              <p class="text-xs text-gray-400">22/09/2026</p>
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Utilizado en atencion AT-041 (cita_equipo)</p>
             </div>
           </div>
           <div class="flex gap-4">
@@ -73,8 +73,8 @@
               <div class="mt-1 h-full w-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
             </div>
             <div class="pb-6">
-              <p class="text-xs text-gray-400">25/09 sep 2026</p>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Cambio de estado a Disponible</p>
+              <p class="text-xs text-gray-400">25/09/2026</p>
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Equipo.cambiarEstado() -&gt; Disponible</p>
             </div>
           </div>
           <div class="flex gap-4">
@@ -83,8 +83,8 @@
               <div class="mt-1 h-full w-px flex-1 bg-gray-100 dark:bg-gray-800"></div>
             </div>
             <div class="pb-6">
-              <p class="text-xs text-gray-400">26/09 sep 2026</p>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Mantenimiento correctivo</p>
+              <p class="text-xs text-gray-400">26/09/2026</p>
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Mantenimiento correctivo programado &middot; S/ 380.00</p>
             </div>
           </div>
       </div>

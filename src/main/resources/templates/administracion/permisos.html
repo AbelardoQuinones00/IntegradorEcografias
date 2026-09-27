@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Permisos', pageSubtitle='Permisos por rol, agrupados por modulo del sistema')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Permisos', pageSubtitle='Entidad permiso (catalogo por modulo)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -24,139 +24,175 @@
       </nav>
 
 
-      <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <label class="form-label">Rol a configurar</label>
-          <select class="form-select !w-auto"><option>Recepcionista</option><option>Especialista</option><option>Almacenero</option><option>Gerencia</option><option>Administrador</option></select>
+      <div x-data="{ modalPermiso:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Entidad permiso (catalogo). La asignacion por rol se hace en <a th:href="@{/roles}" class="text-brand-500 hover:underline">Roles</a>.</p>
+          <button @click="modalPermiso=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Permiso.registrar()</span></button>
         </div>
-        <button class="btn btn-primary"><i data-lucide="save" class="h-4 w-4"></i><span>Guardar permisos</span></button>
-      </div>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Marketing y Ventas</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Pacientes</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Servicios</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Solicitudes</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Citas</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr><th class="table-th">Codigo</th><th class="table-th">Nombre</th><th class="table-th">Modulo</th><th class="table-th">Acciones</th></tr>
+              </thead>
+              <tbody>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">PAC_VER</td>
+                <td class="table-td">Consultar pacientes</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Marketing y Ventas</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">PAC_REG</td>
+                <td class="table-td">Registrar pacientes</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Marketing y Ventas</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">CIT_GES</td>
+                <td class="table-td">Gestionar citas</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Marketing y Ventas</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">REC_LLE</td>
+                <td class="table-td">Registrar llegadas</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Atencion</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ATE_GES</td>
+                <td class="table-td">Gestionar atenciones</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Operaciones</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">INF_GES</td>
+                <td class="table-td">Gestionar informes</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Operaciones</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">INV_GES</td>
+                <td class="table-td">Gestionar inventario</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Logistica y Almacen</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">COM_GES</td>
+                <td class="table-td">Gestionar compras</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Logistica y Almacen</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">MAN_GES</td>
+                <td class="table-td">Gestionar mantenimiento</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Mantenimiento</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">GER_DASH</td>
+                <td class="table-td">Ver dashboard gerencial</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Gerencia</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ADM_USR</td>
+                <td class="table-td">Gestionar usuarios</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Administracion</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">ADM_ROL</td>
+                <td class="table-td">Gestionar roles y permisos</td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Administracion</span></td>
+                <td class="table-td">
+                  <div class="flex items-center gap-1.5">
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalPermiso=true" title="Permiso.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Eliminar"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Atencion</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Agenda</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Recepcion</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-          </div>
-        </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Operaciones</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Atenciones</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Especialistas</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Equipos</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Informes</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-          </div>
-        </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Logistica y Almacen</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Inventario</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Movimientos</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Compras</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Proveedores</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-          </div>
-        </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Mantenimiento</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Equipos</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Mantenimiento</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Historial</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-          </div>
-        </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Gerencia</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Dashboard</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Indicadores</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Reportes</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-          </div>
-        </div>
-        <div class="card p-4">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Administracion</p>
-          <div class="grid grid-cols-2 gap-2">
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Usuarios</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Roles</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
-              <label class="flex items-center justify-between rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-gray-800">
-                <span class="text-gray-600 dark:text-gray-300">Permisos</span>
-                <input type="checkbox" checked class="rounded border-gray-300 text-brand-500" />
-              </label>
+
+        <div x-show="modalPermiso" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalPermiso=false">
+          <div @click.outside="modalPermiso=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / modificar permiso</h3>
+              <button @click="modalPermiso=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Nombre</label><input class="form-input" placeholder="Gestionar citas" /></div>
+              <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="2"></textarea></div>
+              <div><label class="form-label">Modulo</label>
+                <select class="form-select">
+                  <option>Marketing y Ventas</option><option>Atencion</option><option>Operaciones</option>
+                  <option>Logistica y Almacen</option><option>Mantenimiento</option><option>Gerencia</option><option>Administracion</option>
+                </select>
+              </div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="modalPermiso=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar permiso</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

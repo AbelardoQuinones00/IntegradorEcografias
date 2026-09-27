@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Compras', pageSubtitle='Compras a proveedores y entrada de inventario (RF047)')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Compras', pageSubtitle='Entidades compra + detalle_compra (RF047)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -26,9 +26,9 @@
 
       <div x-data="{ nuevaCompra:false }">
         <div class="card mb-5 p-5">
-          <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-gray-400">Proceso: Proveedor &rarr; Compra &rarr; Insumos &rarr; Entrada a almacen &rarr; Actualizacion de stock</p>
+          <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-gray-400">Proveedor &rarr; Compra &rarr; DetalleCompra (1..*) &rarr; movimiento_inventario tipo=ENTRADA</p>
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <p class="text-sm text-gray-500 dark:text-gray-400">RF047 &middot; toda compra genera automaticamente una entrada de inventario</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">RF047 &middot; <code>compra.total</code> se calcula automaticamente por trigger a partir de <code>detalle_compra.subtotal</code></p>
             <button @click="nuevaCompra=true" class="btn btn-primary"><i data-lucide="shopping-cart" class="h-4 w-4"></i><span>Registrar compra</span></button>
           </div>
         </div>
@@ -37,13 +37,13 @@
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50 dark:bg-gray-800/50">
-                <tr><th class="table-th">Compra</th><th class="table-th">Proveedor</th><th class="table-th">Fecha</th><th class="table-th">Total</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+                <tr><th class="table-th">N. Compra</th><th class="table-th">Proveedor</th><th class="table-th">Fecha</th><th class="table-th">Total</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
               </thead>
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">COM-014</td>
                 <td class="table-td">Distribuidora Medica SAC</td>
-                <td class="table-td">25/09 sep</td>
+                <td class="table-td">25/09/2026</td>
                 <td class="table-td font-medium">S/ 850.00</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Recibida</span></td>
                 <td class="table-td"><a th:href="@{/inventario}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="package-check" class="h-3.5 w-3.5"></i>Ver entrada</a></td>
@@ -51,17 +51,17 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">COM-015</td>
                 <td class="table-td">Insumos Hospitalarios EIRL</td>
-                <td class="table-td">24/09 sep</td>
+                <td class="table-td">24/09/2026</td>
                 <td class="table-td font-medium">S/ 320.00</td>
-                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">En transito</span></td>
+                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Registrada</span></td>
                 <td class="table-td"><a th:href="@{/inventario}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="package-check" class="h-3.5 w-3.5"></i>Ver entrada</a></td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">COM-016</td>
                 <td class="table-td">Bioimagen Peru SAC</td>
-                <td class="table-td">20/09 sep</td>
+                <td class="table-td">20/09/2026</td>
                 <td class="table-td font-medium">S/ 1,200.00</td>
-                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Pendiente</span></td>
+                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Anulada</span></td>
                 <td class="table-td"><a th:href="@{/inventario}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="package-check" class="h-3.5 w-3.5"></i>Ver entrada</a></td>
               </tr>
               </tbody>
@@ -76,18 +76,21 @@
               <button @click="nuevaCompra=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
             </div>
             <div class="space-y-4">
-              <div><label class="form-label">Proveedor</label><select class="form-select"><option>Distribuidora Medica SAC</option><option>Insumos Hospitalarios EIRL</option><option>Bioimagen Peru SAC</option></select></div>
-              <div><label class="form-label">Fecha</label><input type="date" class="form-input" /></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="form-label">N. de compra</label><input class="form-input" placeholder="COM-017" /></div>
+                <div><label class="form-label">Proveedor</label><select class="form-select"><option>Distribuidora Medica SAC</option><option>Insumos Hospitalarios EIRL</option><option>Bioimagen Peru SAC</option></select></div>
+              </div>
+              <div><label class="form-label">Fecha de compra</label><input type="date" class="form-input" /></div>
               <div class="rounded-lg border border-gray-100 p-3 dark:border-gray-800">
-                <p class="mb-2 text-xs font-semibold text-gray-500">Insumos</p>
+                <p class="mb-2 text-xs font-semibold text-gray-500">detalle_compra</p>
                 <div class="mb-2 grid grid-cols-3 gap-2">
-                  <select class="form-select !text-xs"><option>Guantes</option><option>Gel ecografico</option></select>
+                  <select class="form-select !text-xs"><option>INS-002 Guantes</option><option>INS-001 Gel ecografico</option></select>
                   <input class="form-input !text-xs" placeholder="Cantidad" />
-                  <input class="form-input !text-xs" placeholder="Precio unit." />
+                  <input class="form-input !text-xs" placeholder="Precio unitario" />
                 </div>
                 <button type="button" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="plus" class="h-3.5 w-3.5"></i>Agregar insumo</button>
               </div>
-              <div class="flex justify-between text-sm font-semibold text-gray-700 dark:text-gray-200"><span>Total</span><span>S/ 850.00</span></div>
+              <div class="flex justify-between text-sm font-semibold text-gray-700 dark:text-gray-200"><span>Total (trigger)</span><span>S/ 850.00</span></div>
               <div class="flex justify-end gap-2 pt-2">
                 <button @click="nuevaCompra=false" class="btn btn-outline">Cancelar</button>
                 <button class="btn btn-primary">Registrar y generar entrada</button>

@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Citas', pageSubtitle='Agendamiento y gestion de citas')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Citas', pageSubtitle='Entidad cita (paciente, servicio, especialista, sala, equipo)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -26,8 +26,8 @@
 
       <div x-data="{ nuevaCita: false, step: 1 }">
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex gap-2">
-            <select class="form-select !w-auto"><option>Todos los estados</option><option>Programada</option><option>Confirmada</option><option>Atendida</option><option>Inasistencia</option></select>
+          <div class="flex flex-wrap gap-2">
+            <select class="form-select !w-auto"><option>Todos los estados</option><option>Pendiente</option><option>Confirmada</option><option>Atendida</option><option>Cancelada</option><option>No asistio</option></select>
             <input type="date" class="form-input !w-auto" />
           </div>
           <button @click="nuevaCita = true; step = 1" class="btn btn-primary"><i data-lucide="calendar-plus" class="h-4 w-4"></i><span>Nueva cita</span></button>
@@ -43,6 +43,7 @@
                   <th class="table-th">Servicio</th>
                   <th class="table-th">Fecha / hora</th>
                   <th class="table-th">Especialista</th>
+                  <th class="table-th">Sala / equipo</th>
                   <th class="table-th">Estado</th>
                   <th class="table-th">Acciones</th>
                 </tr>
@@ -50,81 +51,86 @@
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">CIT-101</td>
-                <td class="table-td">Ana Perez</td>
+                <td class="table-td">Ana Perez Gomez</td>
                 <td class="table-td">Ecografia abdominal</td>
-                <td class="table-td">28/09 08:00</td>
+                <td class="table-td">28/09 08:00-08:30</td>
                 <td class="table-td">Dr. Carlos Perez</td>
+                <td class="table-td">Sala 1 &middot; ECO-001</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Confirmar"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cancelar"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
-                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Registrar asistencia"><i data-lucide="user-check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.confirmar()"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.cancelar()"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
+                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.registrarAsistencia()"><i data-lucide="user-check" class="h-4 w-4"></i></a>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">CIT-102</td>
-                <td class="table-td">Carlos Torres</td>
+                <td class="table-td">Carlos Torres Diaz</td>
                 <td class="table-td">Ecografia renal</td>
-                <td class="table-td">28/09 08:30</td>
+                <td class="table-td">28/09 08:30-08:55</td>
                 <td class="table-td">Dra. Lucia Vega</td>
-                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Programada</span></td>
+                <td class="table-td">Sala 2 &middot; ECO-002</td>
+                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Pendiente</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Confirmar"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cancelar"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
-                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Registrar asistencia"><i data-lucide="user-check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.confirmar()"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.cancelar()"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
+                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.registrarAsistencia()"><i data-lucide="user-check" class="h-4 w-4"></i></a>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">CIT-103</td>
-                <td class="table-td">Maria Lopez</td>
+                <td class="table-td">Maria Lopez Vera</td>
                 <td class="table-td">Ecografia obstetrica</td>
-                <td class="table-td">28/09 09:30</td>
+                <td class="table-td">28/09 09:30-10:10</td>
                 <td class="table-td">Dr. Carlos Perez</td>
-                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Programada</span></td>
+                <td class="table-td">Sala 1 &middot; ECO-001</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Confirmar"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cancelar"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
-                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Registrar asistencia"><i data-lucide="user-check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.confirmar()"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.cancelar()"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
+                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.registrarAsistencia()"><i data-lucide="user-check" class="h-4 w-4"></i></a>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">CIT-104</td>
-                <td class="table-td">Luis Ramos</td>
+                <td class="table-td">Luis Ramos Chura</td>
                 <td class="table-td">Doppler vascular</td>
-                <td class="table-td">27/09 10:00</td>
+                <td class="table-td">27/09 10:00-10:45</td>
                 <td class="table-td">Dra. Lucia Vega</td>
-                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Inasistencia</span></td>
+                <td class="table-td">Sala 2 &middot; ECO-002</td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">No asistio</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Confirmar"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cancelar"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
-                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Registrar asistencia"><i data-lucide="user-check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.confirmar()"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.cancelar()"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
+                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.registrarAsistencia()"><i data-lucide="user-check" class="h-4 w-4"></i></a>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">CIT-105</td>
-                <td class="table-td">Jose Mendoza</td>
+                <td class="table-td">Jose Mendoza Rios</td>
                 <td class="table-td">Ecografia de tiroides</td>
-                <td class="table-td">26/09 11:00</td>
+                <td class="table-td">26/09 11:00-11:20</td>
                 <td class="table-td">Dr. Carlos Perez</td>
+                <td class="table-td">Sala 1 &middot; ECO-001</td>
                 <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Atendida</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Confirmar"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cancelar"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
-                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Registrar asistencia"><i data-lucide="user-check" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.confirmar()"><i data-lucide="check-circle-2" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.cancelar()"><i data-lucide="calendar-x" class="h-4 w-4"></i></button>
+                    <a th:href="@{/recepcion}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.registrarAsistencia()"><i data-lucide="user-check" class="h-4 w-4"></i></a>
                   </div>
                 </td>
               </tr>
@@ -133,7 +139,7 @@
           </div>
         </div>
 
-        <!-- Modal: Nueva cita (wizard) -->
+        <!-- Modal: Nueva cita (Cita.registrar() + Cita.validarDisponibilidad()) -->
         <div x-show="nuevaCita" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="nuevaCita=false">
           <div @click.outside="nuevaCita=false" x-transition class="w-full max-w-xl rounded-2xl bg-white p-6 dark:bg-gray-900">
             <div class="mb-5 flex items-center justify-between">
@@ -154,27 +160,31 @@
 
             <div x-show="step===1" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div class="sm:col-span-2"><label class="form-label">Paciente</label>
-                <select class="form-select"><option>Ana Perez &middot; DNI 45871236</option><option>Carlos Torres</option><option>Maria Lopez</option></select>
+                <select class="form-select"><option>Ana Perez Gomez &middot; DNI 45871236</option><option>Carlos Torres Diaz</option><option>Maria Lopez Vera</option></select>
               </div>
-              <div class="sm:col-span-2"><label class="form-label">Servicio</label>
-                <select class="form-select"><option>Ecografia abdominal &middot; S/ 80.00</option><option>Ecografia renal</option><option>Doppler vascular</option></select>
+              <div class="sm:col-span-2"><label class="form-label">Servicio (servicio_ecografia)</label>
+                <select class="form-select"><option>Ecografia abdominal &middot; S/ 80.00 &middot; 30 min</option><option>Ecografia renal</option><option>Doppler vascular</option></select>
               </div>
             </div>
 
             <div x-show="step===2" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div><label class="form-label">Fecha</label><input type="date" class="form-input" /></div>
-              <div><label class="form-label">Horario</label><select class="form-select"><option>08:00 am</option><option>08:30 am</option><option>09:30 am</option></select></div>
-              <div><label class="form-label">Especialista</label><select class="form-select"><option>Dr. Carlos Perez</option><option>Dra. Lucia Vega</option></select></div>
-              <div><label class="form-label">Sala / equipo</label><select class="form-select"><option>Sala 1 &middot; ECO-001</option><option>Sala 2 &middot; ECO-002</option></select></div>
-              <p class="sm:col-span-2 flex items-center gap-2 rounded-lg bg-green-50 p-2.5 text-xs text-green-700 dark:bg-green-500/10 dark:text-green-400"><i data-lucide="check-circle-2" class="h-4 w-4"></i> Disponibilidad confirmada para paciente, especialista, sala y equipo.</p>
+              <div><label class="form-label">Hora inicio</label><input type="time" value="08:00" class="form-input" /></div>
+              <div><label class="form-label">Especialista</label><select class="form-select"><option>Dr. Carlos Perez &middot; Ecografia general</option><option>Dra. Lucia Vega &middot; Doppler / obstetricia</option></select></div>
+              <div><label class="form-label">Sala</label><select class="form-select"><option>Sala 1</option><option>Sala 2</option><option>Sala 3</option></select></div>
+              <div class="sm:col-span-2"><label class="form-label">Equipo(s) &middot; cita_equipo (N:M)</label>
+                <select class="form-select" multiple size="2"><option selected>ECO-001 &middot; Ecografo Samsung HS60</option><option>ECO-002 &middot; Ecografo Philips Affiniti</option></select>
+              </div>
+              <p class="sm:col-span-2 flex items-center gap-2 rounded-lg bg-green-50 p-2.5 text-xs text-green-700 dark:bg-green-500/10 dark:text-green-400"><i data-lucide="check-circle-2" class="h-4 w-4"></i> Cita.validarDisponibilidad(): sin cruce para paciente, especialista, sala y equipo.</p>
             </div>
 
             <div x-show="step===3" class="space-y-2 rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-800/50">
-              <p class="flex justify-between"><span class="text-gray-400">Paciente</span><span class="font-medium">Ana Perez</span></p>
+              <p class="flex justify-between"><span class="text-gray-400">Paciente</span><span class="font-medium">Ana Perez Gomez</span></p>
               <p class="flex justify-between"><span class="text-gray-400">Servicio</span><span class="font-medium">Ecografia abdominal</span></p>
-              <p class="flex justify-between"><span class="text-gray-400">Fecha / hora</span><span class="font-medium">28/09 &middot; 08:00 am</span></p>
+              <p class="flex justify-between"><span class="text-gray-400">Fecha / hora</span><span class="font-medium">28/09 &middot; 08:00 - 08:30</span></p>
               <p class="flex justify-between"><span class="text-gray-400">Especialista</span><span class="font-medium">Dr. Carlos Perez</span></p>
               <p class="flex justify-between"><span class="text-gray-400">Sala / equipo</span><span class="font-medium">Sala 1 &middot; ECO-001</span></p>
+              <p class="flex justify-between"><span class="text-gray-400">Estado inicial</span><span class="font-medium">Pendiente</span></p>
             </div>
 
             <div class="mt-6 flex justify-between">
@@ -182,7 +192,7 @@
               <span x-show="step===1"></span>
               <div class="flex gap-2">
                 <button type="button" @click="nuevaCita=false" class="btn btn-outline">Cancelar</button>
-                <button type="button" class="btn btn-primary" @click="step<3 ? step++ : nuevaCita=false" x-text="step<3 ? 'Siguiente' : 'Confirmar cita'"></button>
+                <button type="button" class="btn btn-primary" @click="step<3 ? step++ : nuevaCita=false" x-text="step<3 ? 'Siguiente' : 'Registrar cita'"></button>
               </div>
             </div>
           </div>

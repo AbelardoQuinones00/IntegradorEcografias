@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Solicitudes de cita', pageSubtitle='Solicitudes enviadas por pacientes, pendientes de revision')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Solicitudes de cita', pageSubtitle='Entidad solicitud_servicio (RF041)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -33,8 +33,8 @@
 
       <div class="card overflow-hidden">
         <div class="flex items-center justify-between border-b border-gray-100 p-4 dark:border-gray-800">
-          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Solicitudes de cita del paciente</h3>
-          <p class="text-xs text-gray-400">RF041 &middot; solicitudes registradas por el paciente y revisadas por personal autorizado</p>
+          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Entidad solicitud_servicio</h3>
+          <p class="text-xs text-gray-400">1 SolicitudServicio &rarr; 0..1 Cita (puede convertirse en cita o quedar sin cita)</p>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full">
@@ -43,68 +43,73 @@
                 <th class="table-th">Solicitud</th>
                 <th class="table-th">Paciente</th>
                 <th class="table-th">Servicio</th>
-                <th class="table-th">Fecha preferida</th>
+                <th class="table-th">Fecha de solicitud</th>
                 <th class="table-th">Estado</th>
+                <th class="table-th">Observaciones</th>
                 <th class="table-th">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">SOL-001</td>
-                <td class="table-td">Ana Perez</td>
+                <td class="table-td">Ana Perez Gomez</td>
                 <td class="table-td">Ecografia abdominal</td>
-                <td class="table-td">28/09 sep</td>
+                <td class="table-td">28/09/2026 08:14</td>
                 <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Pendiente</span></td>
+                <td class="table-td max-w-[220px] truncate text-gray-400" title="Prefiere turno de manana">Prefiere turno de manana</td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="SolicitudServicio.consultar()"><i data-lucide="eye" class="h-4 w-4"></i></button>
                     <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="SolicitudServicio.cancelar()"><i data-lucide="x" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">SOL-002</td>
-                <td class="table-td">Luis Ramos</td>
+                <td class="table-td">Luis Ramos Chura</td>
                 <td class="table-td">Doppler vascular</td>
-                <td class="table-td">29/09 sep</td>
+                <td class="table-td">29/09/2026 10:02</td>
                 <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Revisada</span></td>
+                <td class="table-td max-w-[220px] truncate text-gray-400" title="Reprograma de la semana pasada">Reprograma de la semana pasada</td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="SolicitudServicio.consultar()"><i data-lucide="eye" class="h-4 w-4"></i></button>
                     <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="SolicitudServicio.cancelar()"><i data-lucide="x" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">SOL-003</td>
-                <td class="table-td">Maria Lopez</td>
+                <td class="table-td">Maria Lopez Vera</td>
                 <td class="table-td">Ecografia obstetrica</td>
-                <td class="table-td">30/09 sep</td>
+                <td class="table-td">30/09/2026 09:40</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Aprobada</span></td>
+                <td class="table-td max-w-[220px] truncate text-gray-400" title="Control mensual de embarazo">Control mensual de embarazo</td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="SolicitudServicio.consultar()"><i data-lucide="eye" class="h-4 w-4"></i></button>
                     <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="SolicitudServicio.cancelar()"><i data-lucide="x" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">SOL-004</td>
-                <td class="table-td">Jose Mendoza</td>
+                <td class="table-td">Jose Mendoza Rios</td>
                 <td class="table-td">Ecografia renal</td>
-                <td class="table-td">01/10 sep</td>
+                <td class="table-td">01/10/2026 16:20</td>
                 <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Rechazada</span></td>
+                <td class="table-td max-w-[220px] truncate text-gray-400" title="Fuera de horario de atencion">Fuera de horario de atencion</td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="SolicitudServicio.consultar()"><i data-lucide="eye" class="h-4 w-4"></i></button>
                     <a th:href="@{/citas}" class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Aprobar / convertir en cita"><i data-lucide="check" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Rechazar"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="SolicitudServicio.cancelar()"><i data-lucide="x" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Contactar"><i data-lucide="phone" class="h-4 w-4"></i></button>
                   </div>
                 </td>

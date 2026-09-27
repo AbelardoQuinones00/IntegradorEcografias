@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Usuarios', pageSubtitle='Cuentas de acceso al sistema')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Usuarios', pageSubtitle='Entidad usuario (persona + rol)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -32,11 +32,12 @@
           </div>
           <button @click="modalUsuario=true" class="btn btn-primary"><i data-lucide="user-plus" class="h-4 w-4"></i><span>Nuevo usuario</span></button>
         </div>
+        <p class="mb-4 text-xs text-gray-400">persona 1 &mdash; 0..1 usuario &middot; rol 1 &mdash; 0..* usuario (un usuario, un solo rol)</p>
         <div class="card overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50 dark:bg-gray-800/50">
-                <tr><th class="table-th">Usuario</th><th class="table-th">Persona</th><th class="table-th">Correo</th><th class="table-th">Rol</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+                <tr><th class="table-th">Username</th><th class="table-th">Persona</th><th class="table-th">Correo</th><th class="table-th">Rol</th><th class="table-th">F. registro</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
               </thead>
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
@@ -44,17 +45,19 @@
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <img src="https://i.pravatar.cc/80?u=rdelgado" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="text-gray-700 dark:text-gray-200">Rosa Delgado</span>
+                    <span class="text-gray-700 dark:text-gray-200">Rosa Delgado Ninahuanca</span>
                   </div>
                 </td>
                 <td class="table-td">rosa.delgado@ecosalud.pe</td>
                 <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Administrador</span></td>
+                <td class="table-td">12/01/2024</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver rol"><i data-lucide="shield" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Usuario.actualizar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.cambiarPassword()"><i data-lucide="key-round" class="h-4 w-4"></i></button>
+                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.asignarRol()"><i data-lucide="shield" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Usuario.activar()/desactivar()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
@@ -63,17 +66,19 @@
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <img src="https://i.pravatar.cc/80?u=cperez" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="text-gray-700 dark:text-gray-200">Carlos Perez</span>
+                    <span class="text-gray-700 dark:text-gray-200">Carlos Perez Huaman</span>
                   </div>
                 </td>
                 <td class="table-td">carlos.perez@ecosalud.pe</td>
                 <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Especialista</span></td>
+                <td class="table-td">03/03/2024</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver rol"><i data-lucide="shield" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Usuario.actualizar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.cambiarPassword()"><i data-lucide="key-round" class="h-4 w-4"></i></button>
+                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.asignarRol()"><i data-lucide="shield" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Usuario.activar()/desactivar()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
@@ -82,55 +87,61 @@
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <img src="https://i.pravatar.cc/80?u=lvega" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="text-gray-700 dark:text-gray-200">Lucia Vega</span>
+                    <span class="text-gray-700 dark:text-gray-200">Lucia Vega Soto</span>
                   </div>
                 </td>
                 <td class="table-td">lucia.vega@ecosalud.pe</td>
                 <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Especialista</span></td>
+                <td class="table-td">03/03/2024</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver rol"><i data-lucide="shield" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Usuario.actualizar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.cambiarPassword()"><i data-lucide="key-round" class="h-4 w-4"></i></button>
+                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.asignarRol()"><i data-lucide="shield" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Usuario.activar()/desactivar()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">mrecep</td>
+                <td class="table-td font-medium">msoto</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=mrecep" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="text-gray-700 dark:text-gray-200">Milagros Soto</span>
+                    <img src="https://i.pravatar.cc/80?u=msoto" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="text-gray-700 dark:text-gray-200">Milagros Soto Reyes</span>
                   </div>
                 </td>
                 <td class="table-td">milagros.soto@ecosalud.pe</td>
                 <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Recepcionista</span></td>
+                <td class="table-td">18/04/2024</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver rol"><i data-lucide="shield" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Usuario.actualizar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.cambiarPassword()"><i data-lucide="key-round" class="h-4 w-4"></i></button>
+                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.asignarRol()"><i data-lucide="shield" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Usuario.activar()/desactivar()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">jalmacen</td>
+                <td class="table-td font-medium">jruiz</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=jalmacen" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="text-gray-700 dark:text-gray-200">Jorge Ruiz</span>
+                    <img src="https://i.pravatar.cc/80?u=jruiz" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="text-gray-700 dark:text-gray-200">Jorge Ruiz Campos</span>
                   </div>
                 </td>
                 <td class="table-td">jorge.ruiz@ecosalud.pe</td>
                 <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Almacenero</span></td>
+                <td class="table-td">02/05/2024</td>
                 <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Inactivo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver rol"><i data-lucide="shield" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Activar/desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalUsuario=true" title="Usuario.actualizar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.cambiarPassword()"><i data-lucide="key-round" class="h-4 w-4"></i></button>
+                    <a th:href="@{/roles}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Usuario.asignarRol()"><i data-lucide="shield" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Usuario.activar()/desactivar()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
@@ -146,9 +157,9 @@
               <button @click="modalUsuario=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
             </div>
             <div class="space-y-4">
-              <div><label class="form-label">Nombre de usuario</label><input class="form-input" placeholder="rdelgado" /></div>
-              <div><label class="form-label">Persona</label><input class="form-input" placeholder="Rosa Delgado" /></div>
-              <div><label class="form-label">Correo</label><input class="form-input" placeholder="correo@ecosalud.pe" /></div>
+              <div><label class="form-label">Persona (documento)</label><select class="form-select"><option>45871236 &middot; Rosa Delgado Ninahuanca</option><option>Registrar nueva persona...</option></select></div>
+              <div><label class="form-label">Username</label><input class="form-input" placeholder="rdelgado" /></div>
+              <div><label class="form-label">Password</label><input type="password" class="form-input" placeholder="********" /></div>
               <div><label class="form-label">Rol</label><select class="form-select"><option>Administrador</option><option>Especialista</option><option>Recepcionista</option><option>Almacenero</option><option>Gerencia</option></select></div>
               <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><input type="checkbox" checked class="rounded border-gray-300 text-brand-500" /> Usuario activo</label>
               <div class="flex justify-end gap-2 pt-2">

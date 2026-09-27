@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Mantenimiento', pageSubtitle='Mantenimiento preventivo y correctivo de equipos')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Mantenimiento', pageSubtitle='Entidad mantenimiento_equipo')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -27,51 +27,57 @@
       <div x-data="{ modalMant:false }">
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
           <select class="form-select !w-auto"><option>Todos los tipos</option><option>Preventivo</option><option>Correctivo</option></select>
-          <button @click="modalMant=true" class="btn btn-primary"><i data-lucide="calendar-plus" class="h-4 w-4"></i><span>Programar mantenimiento</span></button>
+          <button @click="modalMant=true" class="btn btn-primary"><i data-lucide="calendar-plus" class="h-4 w-4"></i><span>MantenimientoEquipo.programar()</span></button>
         </div>
         <div class="card overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50 dark:bg-gray-800/50">
-                <tr><th class="table-th">Equipo</th><th class="table-th">Tipo</th><th class="table-th">Fecha</th><th class="table-th">Responsable</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+                <tr><th class="table-th">Equipo</th><th class="table-th">Tipo</th><th class="table-th">F. programada</th><th class="table-th">F. realizada</th><th class="table-th">Costo</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
               </thead>
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">ECO-003</td>
                 <td class="table-td">Preventivo</td>
-                <td class="table-td">26/09 sep</td>
-                <td class="table-td">Tec. Jorge Ruiz</td>
+                <td class="table-td">26/09/2026</td>
+                <td class="table-td">-</td>
+                <td class="table-td">-</td>
                 <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Programado</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Historial"><i data-lucide="history" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cambiar estado"><i data-lucide="refresh-cw" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="MantenimientoEquipo.finalizar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="MantenimientoEquipo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">ECO-004</td>
                 <td class="table-td">Correctivo</td>
-                <td class="table-td">24/09 sep</td>
-                <td class="table-td">Tec. Jorge Ruiz</td>
+                <td class="table-td">24/09/2026</td>
+                <td class="table-td">-</td>
+                <td class="table-td">S/ 380.00</td>
                 <td class="table-td"><span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">En proceso</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Historial"><i data-lucide="history" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cambiar estado"><i data-lucide="refresh-cw" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="MantenimientoEquipo.finalizar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="MantenimientoEquipo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">ECO-002</td>
                 <td class="table-td">Preventivo</td>
-                <td class="table-td">10/09 sep</td>
-                <td class="table-td">Tec. Ines Vargas</td>
+                <td class="table-td">10/09/2026</td>
+                <td class="table-td">10/09/2026</td>
+                <td class="table-td">S/ 150.00</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Completado</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <a th:href="@{/historial-equipo}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Historial"><i data-lucide="history" class="h-4 w-4"></i></a>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cambiar estado"><i data-lucide="refresh-cw" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="MantenimientoEquipo.finalizar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="MantenimientoEquipo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
@@ -90,11 +96,11 @@
               <div><label class="form-label">Equipo</label><select class="form-select"><option>ECO-001</option><option>ECO-002</option><option>ECO-003</option><option>ECO-004</option></select></div>
               <div><label class="form-label">Tipo</label><select class="form-select"><option>Preventivo</option><option>Correctivo</option></select></div>
               <div class="grid grid-cols-2 gap-4">
-                <div><label class="form-label">Fecha</label><input type="date" class="form-input" /></div>
-                <div><label class="form-label">Responsable</label><input class="form-input" placeholder="Tec. Jorge Ruiz" /></div>
+                <div><label class="form-label">Fecha programada</label><input type="date" class="form-input" /></div>
+                <div><label class="form-label">Costo estimado (S/)</label><input class="form-input" placeholder="150.00" /></div>
               </div>
+              <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="2" placeholder="Detalle del trabajo a realizar"></textarea></div>
               <div><label class="form-label">Observaciones</label><textarea class="form-textarea" rows="2"></textarea></div>
-              <div><label class="form-label">Proximo mantenimiento</label><input type="date" class="form-input" /></div>
               <div class="flex justify-end gap-2 pt-2">
                 <button @click="modalMant=false" class="btn btn-outline">Cancelar</button>
                 <button class="btn btn-primary">Guardar</button>

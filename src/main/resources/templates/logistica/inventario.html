@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Inventario', pageSubtitle='Insumos, stock minimo y consumo (RF015, RF027-29)')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Inventario', pageSubtitle='Entidad insumo (RF015, RF027-29)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -28,79 +28,94 @@
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div class="relative w-full max-w-sm">
             <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"></i>
-            <input type="text" placeholder="Buscar insumo..." class="form-input !pl-9" />
+            <input type="text" placeholder="Buscar insumo por codigo o nombre..." class="form-input !pl-9" />
           </div>
           <button @click="modalInsumo=true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar insumo</span></button>
+        </div>
+
+        <div class="mb-4 rounded-lg bg-gray-50 p-3 text-xs text-gray-500 dark:bg-gray-800/50 dark:text-gray-400">
+          <i data-lucide="info" class="mr-1 inline h-3.5 w-3.5"></i>
+          <code>insumo.stock_actual</code> se recalcula automaticamente con cada <code>movimiento_inventario</code> (trigger), no se edita directamente.
         </div>
 
         <div class="card overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50 dark:bg-gray-800/50">
-                <tr><th class="table-th">Insumo</th><th class="table-th">Stock</th><th class="table-th">Minimo</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
+                <tr><th class="table-th">Codigo</th><th class="table-th">Insumo</th><th class="table-th">Unidad</th><th class="table-th">Stock actual</th><th class="table-th">Stock minimo</th><th class="table-th">Estado</th><th class="table-th">Acciones</th></tr>
               </thead>
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">Gel ecografico</td>
+                <td class="table-td font-medium">INS-001</td>
+                <td class="table-td">Gel ecografico</td>
+                <td class="table-td">Unidad</td>
                 <td class="table-td">35</td>
                 <td class="table-td">20</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Insumo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Insumo.consultarStock()"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">Guantes</td>
+                <td class="table-td font-medium">INS-002</td>
+                <td class="table-td">Guantes de latex</td>
+                <td class="table-td">Caja</td>
                 <td class="table-td">12</td>
                 <td class="table-td">20</td>
                 <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">BAJO</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Insumo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Insumo.consultarStock()"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">Papel termico</td>
+                <td class="table-td font-medium">INS-003</td>
+                <td class="table-td">Papel termico</td>
+                <td class="table-td">Rollo</td>
                 <td class="table-td">50</td>
                 <td class="table-td">15</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Insumo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Insumo.consultarStock()"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">Alcohol en gel</td>
+                <td class="table-td font-medium">INS-004</td>
+                <td class="table-td">Alcohol en gel</td>
+                <td class="table-td">Frasco</td>
                 <td class="table-td">18</td>
                 <td class="table-td">15</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Normal</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Insumo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Insumo.consultarStock()"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">Sabanas descartables</td>
+                <td class="table-td font-medium">INS-005</td>
+                <td class="table-td">Sabanas descartables</td>
+                <td class="table-td">Paquete</td>
                 <td class="table-td">8</td>
                 <td class="table-td">15</td>
                 <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">BAJO</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver movimientos"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalInsumo=true" title="Insumo.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <a th:href="@{/movimientos}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Insumo.consultarStock()"><i data-lucide="arrow-left-right" class="h-4 w-4"></i></a>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-orange-50 hover:text-orange-500" @click="modalConsumo=true" title="Registrar consumo"><i data-lucide="minus-circle" class="h-4 w-4"></i></button>
                   </div>
                 </td>
@@ -113,13 +128,15 @@
         <div x-show="modalInsumo" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalInsumo=false">
           <div @click.outside="modalInsumo=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
             <div class="mb-4 flex items-center justify-between">
-              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / editar insumo</h3>
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / modificar insumo</h3>
               <button @click="modalInsumo=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
             </div>
             <div class="space-y-4">
+              <div><label class="form-label">Codigo</label><input class="form-input" placeholder="INS-006" /></div>
               <div><label class="form-label">Nombre del insumo</label><input class="form-input" placeholder="Gel ecografico" /></div>
+              <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="2"></textarea></div>
               <div class="grid grid-cols-2 gap-4">
-                <div><label class="form-label">Stock actual</label><input class="form-input" placeholder="35" /></div>
+                <div><label class="form-label">Unidad de medida</label><select class="form-select"><option>Unidad</option><option>Caja</option><option>Rollo</option><option>Frasco</option><option>Paquete</option></select></div>
                 <div><label class="form-label">Stock minimo</label><input class="form-input" placeholder="20" /></div>
               </div>
               <div class="flex justify-end gap-2 pt-2">
@@ -138,10 +155,10 @@
             </div>
             <div class="space-y-4">
               <div><label class="form-label">Cantidad consumida</label><input class="form-input" placeholder="10" /></div>
-              <div><label class="form-label">Atencion relacionada</label><input class="form-input" placeholder="AT-001" /></div>
+              <div><label class="form-label">Atencion relacionada (motivo)</label><input class="form-input" placeholder="AT-001" /></div>
               <div class="flex justify-end gap-2 pt-2">
                 <button @click="modalConsumo=false" class="btn btn-outline">Cancelar</button>
-                <button class="btn btn-primary">Registrar</button>
+                <button class="btn btn-primary">Registrar (tipo=CONSUMO)</button>
               </div>
             </div>
           </div>

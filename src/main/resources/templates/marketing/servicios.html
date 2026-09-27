@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Servicios', pageSubtitle='Cartera de estudios ecograficos')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Servicios', pageSubtitle='Entidad servicio_ecografia')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -26,7 +26,7 @@
 
       <div x-data="{ modalServicio: false }">
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <p class="text-sm text-gray-500 dark:text-gray-400">18 servicios de ecografia registrados</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Entidad <code>servicio_ecografia</code> &middot; 18 servicios registrados</p>
           <button @click="modalServicio = true" class="btn btn-primary"><i data-lucide="plus" class="h-4 w-4"></i><span>Registrar servicio</span></button>
         </div>
 
@@ -35,16 +35,18 @@
             <table class="w-full">
               <thead class="bg-gray-50 dark:bg-gray-800/50">
                 <tr>
+                  <th class="table-th">Codigo</th>
                   <th class="table-th">Servicio</th>
                   <th class="table-th">Descripcion</th>
-                  <th class="table-th">Precio / tarifa</th>
-                  <th class="table-th">Duracion</th>
+                  <th class="table-th">Tarifa</th>
+                  <th class="table-th">Duracion estimada</th>
                   <th class="table-th">Estado</th>
                   <th class="table-th">Acciones</th>
                 </tr>
               </thead>
               <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">S-001</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="stethoscope" class="h-4 w-4"></i></div>
@@ -53,16 +55,17 @@
                 </td>
                 <td class="table-td">Evaluacion de organos abdominales</td>
                 <td class="table-td font-medium">S/ 80.00</td>
-                <td class="table-td">30 min</td>
+                <td class="table-td">30.00 min</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Modificar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Servicio.cambiarEstado()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">S-002</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="stethoscope" class="h-4 w-4"></i></div>
@@ -71,16 +74,17 @@
                 </td>
                 <td class="table-td">Evaluacion de rinones y vias urinarias</td>
                 <td class="table-td font-medium">S/ 70.00</td>
-                <td class="table-td">25 min</td>
+                <td class="table-td">25.00 min</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Modificar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Servicio.cambiarEstado()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">S-003</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="stethoscope" class="h-4 w-4"></i></div>
@@ -89,16 +93,17 @@
                 </td>
                 <td class="table-td">Control de embarazo y desarrollo fetal</td>
                 <td class="table-td font-medium">S/ 100.00</td>
-                <td class="table-td">40 min</td>
+                <td class="table-td">40.00 min</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Modificar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Servicio.cambiarEstado()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">S-004</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="stethoscope" class="h-4 w-4"></i></div>
@@ -107,16 +112,17 @@
                 </td>
                 <td class="table-td">Estudio de flujo sanguineo</td>
                 <td class="table-td font-medium">S/ 120.00</td>
-                <td class="table-td">45 min</td>
+                <td class="table-td">45.00 min</td>
                 <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Activo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Modificar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Servicio.cambiarEstado()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
+                <td class="table-td font-medium">S-005</td>
                 <td class="table-td">
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-500 dark:bg-brand-500/10"><i data-lucide="stethoscope" class="h-4 w-4"></i></div>
@@ -125,12 +131,12 @@
                 </td>
                 <td class="table-td">Evaluacion de la glandula tiroides</td>
                 <td class="table-td font-medium">S/ 75.00</td>
-                <td class="table-td">20 min</td>
+                <td class="table-td">20.00 min</td>
                 <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Inactivo</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Desactivar"><i data-lucide="power" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" @click="modalServicio = true" title="Modificar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Servicio.cambiarEstado()"><i data-lucide="power" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
@@ -142,15 +148,15 @@
         <div x-show="modalServicio" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="modalServicio=false">
           <div @click.outside="modalServicio=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
             <div class="mb-4 flex items-center justify-between">
-              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / editar servicio</h3>
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar / modificar servicio</h3>
               <button @click="modalServicio=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
             </div>
             <form class="space-y-4">
               <div><label class="form-label">Nombre del servicio</label><input class="form-input" placeholder="Ecografia abdominal" /></div>
               <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="2" placeholder="Descripcion breve"></textarea></div>
               <div class="grid grid-cols-2 gap-4">
-                <div><label class="form-label">Precio (S/)</label><input class="form-input" placeholder="80.00" /></div>
-                <div><label class="form-label">Duracion (min)</label><input class="form-input" placeholder="30" /></div>
+                <div><label class="form-label">Tarifa (S/)</label><input class="form-input" placeholder="80.00" /></div>
+                <div><label class="form-label">Duracion estimada (min)</label><input class="form-input" placeholder="30.00" /></div>
               </div>
               <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><input type="checkbox" checked class="rounded border-gray-300 text-brand-500" /> Servicio activo</label>
               <div class="flex justify-end gap-2 pt-2">

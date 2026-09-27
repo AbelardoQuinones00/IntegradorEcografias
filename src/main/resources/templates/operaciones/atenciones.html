@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Atenciones', pageSubtitle='Nucleo operativo: seguimiento del estudio de cada paciente')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Atenciones', pageSubtitle='Entidad atencion (1:0..1 con cita)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -25,55 +25,75 @@
 
 
       <div class="card mb-5 overflow-x-auto p-5">
-        <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-gray-400">Flujo de estados de una atencion</p>
-        <div class="flex min-w-[820px] items-center">
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">1</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Cita programada</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">2</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Paciente confirmado</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">3</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Paciente llego</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">4</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">En atencion</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">5</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Ecografia realizada</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">6</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Informe pendiente</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">7</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Informe finalizado</p>
-            </div><div class="mx-1 h-px flex-1 bg-gray-200 dark:bg-gray-700"></div></div>
-          <div class="flex flex-1 items-center">
-            <div class="flex flex-col items-center gap-1.5 text-center">
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">8</div>
-              <p class="w-20 text-[11px] leading-tight text-gray-500 dark:text-gray-400">Resultado entregado</p>
+        <p class="mb-3 text-xs text-gray-400">Una Cita (0..1) genera una Atencion; una Atencion (0..1) genera un ResultadoEcografia y un InformeEcografia. Cada entidad mantiene su propio estado:</p>
+        <div class="min-w-[720px]">
+        <div class="mb-4 last:mb-0">
+          <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">estado_cita</p>
+          <div class="flex items-start">
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-brand-500 text-white">1</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Pendiente</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-brand-500 text-white">2</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Confirmada</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">3</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Atendida</p>
             </div></div>
+        </div>
+        <div class="mb-4 last:mb-0">
+          <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">estado_atencion</p>
+          <div class="flex items-start">
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-blue-500 text-white">1</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Pendiente</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-blue-500 text-white">2</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">En proceso</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">3</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Realizada</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">4</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Finalizada</p>
+            </div></div>
+        </div>
+        <div class="mb-4 last:mb-0">
+          <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">informe_ecografia.estado</p>
+          <div class="flex items-start">
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-green-500 text-white">1</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">En elaboracion</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">2</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">En revision</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">3</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Validado</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">4</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Finalizado</p>
+            </div><div class="mx-1 mt-3 h-px w-6 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1 text-center">
+              <div class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold bg-gray-100 text-gray-400 dark:bg-gray-800">5</div>
+              <p class="w-16 text-[10px] leading-tight text-gray-500 dark:text-gray-400">Entregado</p>
+            </div></div>
+        </div>
         </div>
       </div>
 
       <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div class="flex gap-2">
-          <select class="form-select !w-auto"><option>Todos los estados</option><option>Pendiente</option><option>En atencion</option><option>Informe pendiente</option><option>Resultado entregado</option></select>
-          <select class="form-select !w-auto"><option>Todos los especialistas</option><option>Dr. X</option><option>Dra. Y</option></select>
+          <select class="form-select !w-auto"><option>Todos los estados</option><option>Pendiente</option><option>En proceso</option><option>Realizada</option><option>Finalizada</option></select>
+          <select class="form-select !w-auto"><option>Todos los especialistas</option><option>Dr. Carlos Perez</option><option>Dra. Lucia Vega</option></select>
         </div>
       </div>
 
@@ -82,7 +102,8 @@
           <table class="w-full">
             <thead class="bg-gray-50 dark:bg-gray-800/50">
               <tr>
-                <th class="table-th">Codigo</th>
+                <th class="table-th">Atencion</th>
+                <th class="table-th">Cita</th>
                 <th class="table-th">Paciente</th>
                 <th class="table-th">Servicio</th>
                 <th class="table-th">Especialista</th>
@@ -94,20 +115,22 @@
             <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">AT-001</td>
-                <td class="table-td">Ana Perez</td>
-                <td class="table-td">Abdominal</td>
-                <td class="table-td">Dr. X</td>
+                <td class="table-td text-gray-400">CIT-101</td>
+                <td class="table-td">Ana Perez Gomez</td>
+                <td class="table-td">Ecografia abdominal</td>
+                <td class="table-td">Dr. Carlos Perez</td>
                 <td class="table-td">ECO-001</td>
-                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En atencion</span></td>
+                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En proceso</span></td>
                 <td class="table-td">
                   <a th:href="@{/atencion-detalle}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i>Ver</a>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">AT-002</td>
-                <td class="table-td">Luis Ramos</td>
-                <td class="table-td">Renal</td>
-                <td class="table-td">Dra. Y</td>
+                <td class="table-td text-gray-400">CIT-102</td>
+                <td class="table-td">Carlos Torres Diaz</td>
+                <td class="table-td">Ecografia renal</td>
+                <td class="table-td">Dra. Lucia Vega</td>
                 <td class="table-td">ECO-002</td>
                 <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Pendiente</span></td>
                 <td class="table-td">
@@ -116,33 +139,24 @@
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">AT-003</td>
-                <td class="table-td">Maria Lopez</td>
-                <td class="table-td">Obstetrica</td>
-                <td class="table-td">Dr. X</td>
+                <td class="table-td text-gray-400">CIT-103</td>
+                <td class="table-td">Maria Lopez Vera</td>
+                <td class="table-td">Ecografia obstetrica</td>
+                <td class="table-td">Dr. Carlos Perez</td>
                 <td class="table-td">ECO-001</td>
-                <td class="table-td"><span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Informe pendiente</span></td>
+                <td class="table-td"><span class="badge bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400">Realizada</span></td>
                 <td class="table-td">
                   <a th:href="@{/atencion-detalle}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i>Ver</a>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">AT-004</td>
-                <td class="table-td">Jose Mendoza</td>
-                <td class="table-td">Doppler</td>
-                <td class="table-td">Dra. Y</td>
+                <td class="table-td text-gray-400">CIT-104b</td>
+                <td class="table-td">Jose Mendoza Rios</td>
+                <td class="table-td">Doppler vascular</td>
+                <td class="table-td">Dra. Lucia Vega</td>
                 <td class="table-td">ECO-002</td>
-                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Informe finalizado</span></td>
-                <td class="table-td">
-                  <a th:href="@{/atencion-detalle}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i>Ver</a>
-                </td>
-              </tr>
-              <tr class="table-row border-t border-gray-100 dark:border-gray-800">
-                <td class="table-td font-medium">AT-005</td>
-                <td class="table-td">Carlos Torres</td>
-                <td class="table-td">Tiroides</td>
-                <td class="table-td">Dr. X</td>
-                <td class="table-td">ECO-001</td>
-                <td class="table-td"><span class="badge bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400">Resultado entregado</span></td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Finalizada</span></td>
                 <td class="table-td">
                   <a th:href="@{/atencion-detalle}" class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i>Ver</a>
                 </td>

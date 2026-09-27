@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Recepcion', pageSubtitle='Verificacion de datos, llegada y estado de la atencion')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Recepcion', pageSubtitle='Verificacion de datos, llegada y estado de cita/atencion')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -25,10 +25,10 @@
 
 
       <div class="mb-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div class="card p-4 text-center"><p class="text-xl font-bold text-yellow-600">4</p><p class="text-xs text-gray-400">Esperando</p></div>
-        <div class="card p-4 text-center"><p class="text-xl font-bold text-brand-600">3</p><p class="text-xs text-gray-400">En atencion</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-yellow-600">4</p><p class="text-xs text-gray-400">Pendientes</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-brand-600">3</p><p class="text-xs text-gray-400">En proceso</p></div>
         <div class="card p-4 text-center"><p class="text-xl font-bold text-blue-600">6</p><p class="text-xs text-gray-400">Confirmadas</p></div>
-        <div class="card p-4 text-center"><p class="text-xl font-bold text-red-600">1</p><p class="text-xs text-gray-400">Inasistencias</p></div>
+        <div class="card p-4 text-center"><p class="text-xl font-bold text-red-600">1</p><p class="text-xs text-gray-400">No asistio</p></div>
       </div>
 
       <div class="card overflow-hidden">
@@ -51,19 +51,19 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=Ana Perez" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="font-medium text-gray-700 dark:text-gray-200">Ana Perez</span>
+                    <img src="https://i.pravatar.cc/80?u=Ana Perez Gomez" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Ana Perez Gomez</span>
                   </div>
                 </td>
                 <td class="table-td">08:00</td>
                 <td class="table-td">Ecografia abdominal</td>
-                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Esperando</span></td>
+                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">Pendiente (cita)</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Registrar llegada"><i data-lucide="log-in" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Confirmar"><i data-lucide="check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Marcar inasistencia"><i data-lucide="user-x" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.confirmar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.registrarInasistencia()"><i data-lucide="user-x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
                     <a th:href="@{/atenciones}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver atencion"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                   </div>
                 </td>
@@ -71,19 +71,19 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=Carlos Torres" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="font-medium text-gray-700 dark:text-gray-200">Carlos Torres</span>
+                    <img src="https://i.pravatar.cc/80?u=Carlos Torres Diaz" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Carlos Torres Diaz</span>
                   </div>
                 </td>
                 <td class="table-td">08:30</td>
                 <td class="table-td">Ecografia renal</td>
-                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En atencion</span></td>
+                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En proceso (atencion)</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Registrar llegada"><i data-lucide="log-in" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Confirmar"><i data-lucide="check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Marcar inasistencia"><i data-lucide="user-x" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.confirmar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.registrarInasistencia()"><i data-lucide="user-x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
                     <a th:href="@{/atenciones}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver atencion"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                   </div>
                 </td>
@@ -91,19 +91,19 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=Maria Lopez" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="font-medium text-gray-700 dark:text-gray-200">Maria Lopez</span>
+                    <img src="https://i.pravatar.cc/80?u=Maria Lopez Vera" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Maria Lopez Vera</span>
                   </div>
                 </td>
                 <td class="table-td">09:30</td>
                 <td class="table-td">Ecografia obstetrica</td>
-                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Confirmada</span></td>
+                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">Confirmada (cita)</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Registrar llegada"><i data-lucide="log-in" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Confirmar"><i data-lucide="check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Marcar inasistencia"><i data-lucide="user-x" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.confirmar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.registrarInasistencia()"><i data-lucide="user-x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
                     <a th:href="@{/atenciones}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver atencion"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                   </div>
                 </td>
@@ -111,19 +111,19 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=Jose Mendoza" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="font-medium text-gray-700 dark:text-gray-200">Jose Mendoza</span>
+                    <img src="https://i.pravatar.cc/80?u=Jose Mendoza Rios" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Jose Mendoza Rios</span>
                   </div>
                 </td>
                 <td class="table-td">10:30</td>
                 <td class="table-td">Doppler vascular</td>
-                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">Inasistencia</span></td>
+                <td class="table-td"><span class="badge bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">No asistio (cita)</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Registrar llegada"><i data-lucide="log-in" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Confirmar"><i data-lucide="check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Marcar inasistencia"><i data-lucide="user-x" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.confirmar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.registrarInasistencia()"><i data-lucide="user-x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
                     <a th:href="@{/atenciones}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver atencion"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                   </div>
                 </td>
@@ -131,19 +131,19 @@
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td">
                   <div class="flex items-center gap-3">
-                    <img src="https://i.pravatar.cc/80?u=Luis Ramos" class="h-8 w-8 rounded-full object-cover" />
-                    <span class="font-medium text-gray-700 dark:text-gray-200">Luis Ramos</span>
+                    <img src="https://i.pravatar.cc/80?u=Luis Ramos Chura" class="h-8 w-8 rounded-full object-cover" />
+                    <span class="font-medium text-gray-700 dark:text-gray-200">Luis Ramos Chura</span>
                   </div>
                 </td>
                 <td class="table-td">11:00</td>
                 <td class="table-td">Ecografia de tiroides</td>
-                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Atendida</span></td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Finalizada (atencion)</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Registrar llegada"><i data-lucide="log-in" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Confirmar"><i data-lucide="check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Marcar inasistencia"><i data-lucide="user-x" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Reprogramar"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Cita.confirmar()"><i data-lucide="check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500" title="Cita.registrarInasistencia()"><i data-lucide="user-x" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Cita.reprogramar()"><i data-lucide="calendar-clock" class="h-4 w-4"></i></button>
                     <a th:href="@{/atenciones}" class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Ver atencion"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                   </div>
                 </td>

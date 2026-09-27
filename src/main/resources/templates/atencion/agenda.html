@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda', pageSubtitle='Vista visual de citas por dia, especialista y sala')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Agenda', pageSubtitle='Vista visual de citas: paciente, especialista, sala y equipo')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -28,8 +28,8 @@
         <div><label class="form-label">Fecha</label><input type="date" value="2026-09-28" class="form-input" /></div>
         <div><label class="form-label">Especialista</label><select class="form-select"><option>Todos</option><option>Dr. Carlos Perez</option><option>Dra. Lucia Vega</option></select></div>
         <div><label class="form-label">Servicio</label><select class="form-select"><option>Todos</option><option>Ecografia abdominal</option><option>Doppler vascular</option></select></div>
-        <div><label class="form-label">Sala</label><select class="form-select"><option>Todas</option><option>Sala 1</option><option>Sala 2</option></select></div>
-        <div><label class="form-label">Estado</label><select class="form-select"><option>Todos</option><option>Confirmada</option><option>Disponible</option></select></div>
+        <div><label class="form-label">Sala</label><select class="form-select"><option>Todas</option><option>Sala 1</option><option>Sala 2</option><option>Sala 3</option></select></div>
+        <div><label class="form-label">Estado (estado_cita)</label><select class="form-select"><option>Todos</option><option>Pendiente</option><option>Confirmada</option><option>Atendida</option><option>Cancelada</option><option>No asistio</option></select></div>
       </div>
 
       <div class="card overflow-hidden">
@@ -44,16 +44,16 @@
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 shrink-0 text-sm font-semibold text-gray-700 dark:text-gray-200">08:00</span>
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-800 dark:text-white">Ana Perez</p>
-              <p class="text-xs text-gray-400">Ecografia abdominal &middot; Dr. Carlos Perez</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white">Ana Perez Gomez</p>
+              <p class="text-xs text-gray-400">Ecografia abdominal &middot; Dr. Carlos Perez &middot; Sala 1 &middot; ECO-001</p>
             </div>
             <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span>
           </div>
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 shrink-0 text-sm font-semibold text-gray-700 dark:text-gray-200">08:30</span>
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-800 dark:text-white">Carlos Torres</p>
-              <p class="text-xs text-gray-400">Ecografia renal &middot; Dra. Lucia Vega</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white">Carlos Torres Diaz</p>
+              <p class="text-xs text-gray-400">Ecografia renal &middot; Dra. Lucia Vega &middot; Sala 2 &middot; ECO-002</p>
             </div>
             <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span>
           </div>
@@ -65,8 +65,8 @@
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 shrink-0 text-sm font-semibold text-gray-700 dark:text-gray-200">09:30</span>
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-800 dark:text-white">Maria Lopez</p>
-              <p class="text-xs text-gray-400">Ecografia obstetrica &middot; Dr. Carlos Perez</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white">Maria Lopez Vera</p>
+              <p class="text-xs text-gray-400">Ecografia obstetrica &middot; Dr. Carlos Perez &middot; Sala 1 &middot; ECO-001</p>
             </div>
             <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span>
           </div>
@@ -78,8 +78,8 @@
           <div class="flex items-center gap-4 border-l-4 border-brand-500 bg-brand-50/60 px-4 py-3 dark:bg-brand-500/10">
             <span class="w-14 shrink-0 text-sm font-semibold text-gray-700 dark:text-gray-200">10:30</span>
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-800 dark:text-white">Jose Mendoza</p>
-              <p class="text-xs text-gray-400">Doppler vascular &middot; Dra. Lucia Vega</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white">Jose Mendoza Rios</p>
+              <p class="text-xs text-gray-400">Doppler vascular &middot; Dra. Lucia Vega &middot; Sala 2 &middot; ECO-002</p>
             </div>
             <span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Confirmada</span>
           </div>

@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Atencion #AT-001', pageSubtitle='Detalle del proceso de prestacion del servicio')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Atencion #AT-001', pageSubtitle='Entidades atencion + observacion_atencion + resultado_ecografia')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -24,49 +24,62 @@
       </nav>
 
 
-      <div x-data="{ registrarResultado: false }">
+      <div x-data="{ registrarResultado: false, nuevaObs: false }">
         <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
           <div>
             <h2 class="text-lg font-bold text-gray-800 dark:text-white">Atencion #AT-001</h2>
-            <p class="text-xs text-gray-400">Creada el 28/09/2026 &middot; 07:55 am</p>
+            <p class="text-xs text-gray-400">Cita CIT-101 &middot; creada 28/09/2026 07:55 am</p>
           </div>
-          <span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">EN ATENCION</span>
+          <span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">EN PROCESO</span>
         </div>
 
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
           <div class="card p-5 lg:col-span-1">
-            <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Datos generales</h3>
+            <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Datos generales (atencion)</h3>
             <dl class="space-y-3 text-sm">
-              <div class="flex justify-between"><dt class="text-gray-400">Paciente</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Ana Perez</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">Paciente</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Ana Perez Gomez</dd></div>
               <div class="flex justify-between"><dt class="text-gray-400">Servicio</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Ecografia abdominal</dd></div>
-              <div class="flex justify-between"><dt class="text-gray-400">Especialista</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Dr. Carlos X</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">Especialista</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Dr. Carlos Perez</dd></div>
               <div class="flex justify-between"><dt class="text-gray-400">Equipo</dt><dd class="font-medium text-gray-700 dark:text-gray-200">ECO-001</dd></div>
-              <div class="flex justify-between"><dt class="text-gray-400">Sala</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Sala 02</dd></div>
-              <div class="flex justify-between"><dt class="text-gray-400">Estado</dt><dd><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En atencion</span></dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">Sala</dt><dd class="font-medium text-gray-700 dark:text-gray-200">Sala 1</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">Fecha inicio</dt><dd class="font-medium text-gray-700 dark:text-gray-200">08:02 am</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">Fecha fin</dt><dd class="font-medium text-gray-700 dark:text-gray-200">--:--</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-400">estado_atencion</dt><dd><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">En proceso</span></dd></div>
             </dl>
+
+            <h3 class="mb-3 mt-6 text-sm font-semibold text-gray-700 dark:text-gray-200">Observaciones (ObservacionAtencion &middot; 0..*)</h3>
+            <div class="space-y-2 rounded-lg border border-gray-100 p-3 dark:border-gray-800">
+                <div class="flex gap-3">
+                  <span class="w-12 shrink-0 text-xs text-gray-400">08:02</span>
+                  <p class="flex-1 text-xs text-gray-600 dark:text-gray-300">Paciente ingresa a sala 1, se explica procedimiento.</p>
+                </div>
+                <div class="flex gap-3">
+                  <span class="w-12 shrink-0 text-xs text-gray-400">08:10</span>
+                  <p class="flex-1 text-xs text-gray-600 dark:text-gray-300">Se identifica leve distension abdominal, se continua estudio.</p>
+                </div>
+            </div>
+            <button @click="nuevaObs=true" class="btn btn-outline mt-2 w-full !py-1.5 !text-xs"><i data-lucide="plus" class="h-3.5 w-3.5"></i>Registrar observacion</button>
           </div>
 
           <div class="card p-5 lg:col-span-2">
-            <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">Informacion del estudio</h3>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div><label class="form-label">Hora de inicio</label><input class="form-input" value="08:02 am" /></div>
-              <div><label class="form-label">Hora de finalizacion</label><input class="form-input" placeholder="--:--" /></div>
-              <div class="sm:col-span-2"><label class="form-label">Observaciones</label><textarea class="form-textarea" rows="3" placeholder="Notas del estudio..."></textarea></div>
-              <div class="sm:col-span-2"><label class="form-label">Insumos utilizados</label>
-                <div class="flex flex-wrap gap-2"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Gel ecografico x1</span><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Papel termico x1</span><button class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="plus" class="h-3.5 w-3.5"></i>Agregar insumo</button></div>
-              </div>
-              <div class="sm:col-span-2"><label class="form-label">Resultados</label>
-                <div class="flex items-center gap-2 rounded-lg border border-dashed border-gray-300 p-3 text-xs text-gray-400 dark:border-gray-700">
-                  <i data-lucide="image" class="h-4 w-4"></i> Sin imagenes cargadas aun
-                </div>
-              </div>
+            <h3 class="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-200">observaciones_generales (atencion)</h3>
+            <textarea class="form-textarea mb-5" rows="2" placeholder="Notas generales del estudio..."></textarea>
+
+            <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">ResultadoEcografia (0..1)</h3>
+            <div class="mb-5 grid grid-cols-1 gap-4">
+              <div><label class="form-label">Descripcion</label><input class="form-input" placeholder="Descripcion breve del estudio" /></div>
+              <div><label class="form-label">Hallazgos</label><textarea class="form-textarea" rows="2" placeholder="Hallazgos del estudio..."></textarea></div>
+              <div><label class="form-label">Conclusiones</label><textarea class="form-textarea" rows="2" placeholder="Conclusiones diagnosticas..."></textarea></div>
             </div>
 
-            <div class="mt-5 flex flex-wrap gap-2 border-t border-gray-100 pt-4 dark:border-gray-800">
-              <button class="btn btn-outline"><i data-lucide="play" class="h-4 w-4"></i>Iniciar atencion</button>
+            <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Insumos consumidos (movimiento_inventario, tipo=CONSUMO)</h3>
+            <div class="mb-5 flex flex-wrap gap-2"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Gel ecografico x1</span><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Papel termico x1</span><button class="btn btn-outline !py-1 !px-2.5 !text-xs"><i data-lucide="plus" class="h-3.5 w-3.5"></i>Agregar insumo</button></div>
+
+            <div class="flex flex-wrap gap-2 border-t border-gray-100 pt-4 dark:border-gray-800">
+              <button class="btn btn-outline"><i data-lucide="play" class="h-4 w-4"></i>Atencion.iniciar()</button>
               <button @click="registrarResultado = true" class="btn btn-outline"><i data-lucide="clipboard-plus" class="h-4 w-4"></i>Registrar resultado</button>
-              <button class="btn btn-outline"><i data-lucide="check-circle-2" class="h-4 w-4"></i>Finalizar atencion</button>
-              <a th:href="@{/informes}" class="btn btn-primary"><i data-lucide="file-text" class="h-4 w-4"></i>Generar informe</a>
+              <button class="btn btn-outline"><i data-lucide="check-circle-2" class="h-4 w-4"></i>Atencion.finalizar()</button>
+              <a th:href="@{/informes}" class="btn btn-primary"><i data-lucide="file-text" class="h-4 w-4"></i>InformeEcografia.elaborar()</a>
             </div>
           </div>
         </div>
@@ -79,10 +92,26 @@
             </div>
             <div class="space-y-4">
               <div><label class="form-label">Hallazgos</label><textarea class="form-textarea" rows="4" placeholder="Describa los hallazgos del estudio..."></textarea></div>
-              <div><label class="form-label">Archivo de imagenes</label><input type="file" class="form-input" /></div>
+              <div><label class="form-label">Conclusiones</label><textarea class="form-textarea" rows="2"></textarea></div>
               <div class="flex justify-end gap-2 pt-2">
                 <button @click="registrarResultado=false" class="btn btn-outline">Cancelar</button>
                 <button class="btn btn-primary">Guardar resultado</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-show="nuevaObs" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="nuevaObs=false">
+          <div @click.outside="nuevaObs=false" x-transition class="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Registrar observacion</h3>
+              <button @click="nuevaObs=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Descripcion</label><textarea class="form-textarea" rows="3"></textarea></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="nuevaObs=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar</button>
               </div>
             </div>
           </div>

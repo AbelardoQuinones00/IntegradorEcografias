@@ -14,7 +14,7 @@
   <div th:replace="~{fragments/layout :: overlay}"></div>
 
   <div class="flex min-h-screen w-full flex-1 flex-col">
-    <header th:replace="~{fragments/layout :: topbar(pageTitle='Informes', pageSubtitle='Elaboracion, validacion y entrega de resultados')}"></header>
+    <header th:replace="~{fragments/layout :: topbar(pageTitle='Informes', pageSubtitle='Entidad informe_ecografia (elaborar / validar / finalizar / entregar)')}"></header>
 
     <main class="flex-1 p-4 sm:p-6">
       <nav class="mb-4 flex items-center gap-1.5 text-xs text-gray-400">
@@ -24,92 +24,119 @@
       </nav>
 
 
-      <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex gap-2">
-          <select class="form-select !w-auto"><option>Todos los estados</option><option>Borrador</option><option>En revision</option><option>Finalizado</option><option>Entregado</option></select>
+      <div x-data="{ nuevoInforme:false }">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <select class="form-select !w-auto"><option>Todos los estados</option><option>En elaboracion</option><option>En revision</option><option>Validado</option><option>Finalizado</option><option>Entregado</option></select>
+          <button @click="nuevoInforme=true" class="btn btn-primary"><i data-lucide="file-plus" class="h-4 w-4"></i><span>InformeEcografia.elaborar()</span></button>
         </div>
-        <button class="btn btn-primary"><i data-lucide="file-plus" class="h-4 w-4"></i><span>Elaborar informe</span></button>
-      </div>
-      <div class="card overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead class="bg-gray-50 dark:bg-gray-800/50">
-              <tr>
-                <th class="table-th">Informe</th>
-                <th class="table-th">Paciente</th>
-                <th class="table-th">Atencion</th>
-                <th class="table-th">Especialista</th>
-                <th class="table-th">Estado</th>
-                <th class="table-th">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr>
+                  <th class="table-th">Informe</th>
+                  <th class="table-th">Paciente</th>
+                  <th class="table-th">Atencion</th>
+                  <th class="table-th">Especialista</th>
+                  <th class="table-th">Archivo</th>
+                  <th class="table-th">Fecha entrega</th>
+                  <th class="table-th">Estado</th>
+                  <th class="table-th">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">INF-001</td>
-                <td class="table-td">Ana Perez</td>
-                <td class="table-td">AT-001</td>
-                <td class="table-td">Dr. X</td>
-                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">En revision</span></td>
+                <td class="table-td">Ana Perez Gomez</td>
+                <td class="table-td text-gray-400">AT-001</td>
+                <td class="table-td">Dr. Carlos Perez</td>
+                <td class="table-td"><span class="flex items-center gap-1.5 text-gray-500"><i data-lucide="file-text" class="h-3.5 w-3.5"></i>informe_AT001.pdf</span></td>
+                <td class="table-td">-</td>
+                <td class="table-td"><span class="badge bg-yellow-50 text-yellow-700 dark:bg-yellow-500/10 dark:text-yellow-400">En elaboracion</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Revisar"><i data-lucide="eye" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Validar / finalizar"><i data-lucide="check-check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Entregar"><i data-lucide="send" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="InformeEcografia.validar() / finalizar()"><i data-lucide="check-check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.registrarEntrega()"><i data-lucide="send" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Descargar"><i data-lucide="download" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">INF-002</td>
-                <td class="table-td">Luis Ramos</td>
-                <td class="table-td">AT-002</td>
-                <td class="table-td">Dra. Y</td>
-                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Finalizado</span></td>
+                <td class="table-td">Luis Ramos Chura</td>
+                <td class="table-td text-gray-400">AT-002</td>
+                <td class="table-td">Dra. Lucia Vega</td>
+                <td class="table-td"><span class="flex items-center gap-1.5 text-gray-500"><i data-lucide="file-text" class="h-3.5 w-3.5"></i>informe_AT002.pdf</span></td>
+                <td class="table-td">-</td>
+                <td class="table-td"><span class="badge bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">En revision</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Revisar"><i data-lucide="eye" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Validar / finalizar"><i data-lucide="check-check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Entregar"><i data-lucide="send" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="InformeEcografia.validar() / finalizar()"><i data-lucide="check-check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.registrarEntrega()"><i data-lucide="send" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Descargar"><i data-lucide="download" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">INF-003</td>
-                <td class="table-td">Maria Lopez</td>
-                <td class="table-td">AT-003</td>
-                <td class="table-td">Dr. X</td>
-                <td class="table-td"><span class="badge bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">Borrador</span></td>
+                <td class="table-td">Maria Lopez Vera</td>
+                <td class="table-td text-gray-400">AT-003</td>
+                <td class="table-td">Dr. Carlos Perez</td>
+                <td class="table-td"><span class="flex items-center gap-1.5 text-gray-500"><i data-lucide="file-text" class="h-3.5 w-3.5"></i>informe_AT003.pdf</span></td>
+                <td class="table-td">-</td>
+                <td class="table-td"><span class="badge bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400">Validado</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Revisar"><i data-lucide="eye" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Validar / finalizar"><i data-lucide="check-check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Entregar"><i data-lucide="send" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="InformeEcografia.validar() / finalizar()"><i data-lucide="check-check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.registrarEntrega()"><i data-lucide="send" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Descargar"><i data-lucide="download" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
               <tr class="table-row border-t border-gray-100 dark:border-gray-800">
                 <td class="table-td font-medium">INF-004</td>
-                <td class="table-td">Jose Mendoza</td>
-                <td class="table-td">AT-004</td>
-                <td class="table-td">Dra. Y</td>
-                <td class="table-td"><span class="badge bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400">Entregado</span></td>
+                <td class="table-td">Jose Mendoza Rios</td>
+                <td class="table-td text-gray-400">AT-004</td>
+                <td class="table-td">Dra. Lucia Vega</td>
+                <td class="table-td"><span class="flex items-center gap-1.5 text-gray-500"><i data-lucide="file-text" class="h-3.5 w-3.5"></i>informe_AT004.pdf</span></td>
+                <td class="table-td">28/09 10:12</td>
+                <td class="table-td"><span class="badge bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400">Entregado</span></td>
                 <td class="table-td">
                   <div class="flex items-center gap-1.5">
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Editar"><i data-lucide="pencil" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.modificar()"><i data-lucide="pencil" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Revisar"><i data-lucide="eye" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="Validar / finalizar"><i data-lucide="check-check" class="h-4 w-4"></i></button>
-                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Entregar"><i data-lucide="send" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600" title="InformeEcografia.validar() / finalizar()"><i data-lucide="check-check" class="h-4 w-4"></i></button>
+                    <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="InformeEcografia.registrarEntrega()"><i data-lucide="send" class="h-4 w-4"></i></button>
                     <button class="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-500" title="Descargar"><i data-lucide="download" class="h-4 w-4"></i></button>
                   </div>
                 </td>
               </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div x-show="nuevoInforme" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" @keydown.escape.window="nuevoInforme=false">
+          <div @click.outside="nuevoInforme=false" x-transition class="w-full max-w-md rounded-2xl bg-white p-6 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-semibold text-gray-800 dark:text-white">Elaborar informe</h3>
+              <button @click="nuevoInforme=false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <div class="space-y-4">
+              <div><label class="form-label">Atencion</label><select class="form-select"><option>AT-001 &middot; Ana Perez Gomez</option><option>AT-002 &middot; Luis Ramos Chura</option></select></div>
+              <div><label class="form-label">Archivo (nombreArchivo / tipoArchivo)</label><input type="file" class="form-input" /></div>
+              <div class="flex justify-end gap-2 pt-2">
+                <button @click="nuevoInforme=false" class="btn btn-outline">Cancelar</button>
+                <button class="btn btn-primary">Guardar como borrador</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
